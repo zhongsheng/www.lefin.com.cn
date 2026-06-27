@@ -9,9 +9,10 @@ describe("Lefin homepage", () => {
 
     expect(screen.getByRole("heading", { level: 1, name: "拒绝复溶，重构鲜活" })).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "主导航" })).toBeInTheDocument();
-    expect(screen.getAllByText("NFP Not From Powder").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText("高占比液态湿法工艺")).toBeInTheDocument();
-    expect(screen.getByText("上海乐玢国际贸易有限公司")).toBeInTheDocument();
+    expect(screen.getByText("400-8084066")).toBeInTheDocument();
+    expect(screen.getByText("湿法工艺全流程，高占比液态成粉")).toBeInTheDocument();
+    expect(screen.getByText("Valio芬兰奶源，纯净之源")).toBeInTheDocument();
+    expect(screen.getByText("科学分段，精准满足成长所需")).toBeInTheDocument();
   });
 
   it("opens the mobile navigation menu", async () => {
@@ -28,14 +29,15 @@ describe("Lefin homepage", () => {
     render(<App />);
 
     const user = userEvent.setup();
-    await user.click(screen.getByRole("button", { name: "什么是稀奶油？" }));
-    expect(screen.getByText(/源自鲜牛乳/)).toBeVisible();
+    await user.click(screen.getByRole("button", { name: "什么是NFP™（Not From Powder）？" }));
+    expect(screen.getByText(/不从粉开始/)).toBeVisible();
 
     await user.type(screen.getByLabelText("姓名"), "张女士");
-    await user.type(screen.getByLabelText("Email"), "parent@example.com");
-    await user.type(screen.getByLabelText("咨询内容"), "想了解三段产品");
-    await user.click(screen.getByRole("button", { name: "发送信息" }));
+    await user.type(screen.getByLabelText("手机号码"), "13800138000");
+    await user.selectOptions(screen.getByLabelText("选择咨询类型"), "产品咨询");
+    await user.type(screen.getByLabelText("请填写您的留言内容"), "想了解三段产品");
+    await user.click(screen.getByRole("button", { name: "提交" }));
 
-    expect(screen.getByText("信息已记录，我们会尽快联系您。")).toBeVisible();
+    expect(screen.getByText("留言已提交，我们会尽快联系您。")).toBeVisible();
   });
 });

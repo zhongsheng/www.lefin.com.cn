@@ -1,71 +1,78 @@
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import {
   ArrowRight,
   CaretDown,
+  ChartLineUp,
   CheckCircle,
-  Cow,
+  CrownSimple,
   Drop,
   EnvelopeSimple,
   Factory,
-  Flask,
+  Funnel,
+  HouseLine,
   Leaf,
   List,
-  MapPin,
   Phone,
   ShieldCheck,
+  Snowflake,
+  ThermometerSimple,
   X
 } from "@phosphor-icons/react";
 import logoUrl from "./assets/brand/lefin-logo.webp";
-import farmUrl from "./assets/generated/finnish-farm.webp";
-import heroFactoryUrl from "./assets/generated/hero-factory.webp";
-import productUrl from "./assets/generated/lefin-product-stage3.webp";
+import heroUrl from "./assets/generated/prototype-hero.webp";
+import productLineupUrl from "./assets/generated/product-lineup.webp";
+import valioLakeUrl from "./assets/generated/valio-lake.webp";
 import {
   ContactFormErrors,
   ContactFormValues,
   faqItems,
+  heroMetrics,
   navItems,
   processSteps,
   productStages,
-  validateContactForm
+  validateContactForm,
+  valioPoints
 } from "./siteContent";
 
 const emptyForm: ContactFormValues = {
   name: "",
-  email: "",
+  phone: "",
+  topic: "",
   message: ""
 };
 
-const iconForStep = [Drop, Factory, Flask, ShieldCheck];
+const metricIcons = [Drop, CrownSimple, ChartLineUp];
+const processIcons = [Drop, Funnel, Factory, ThermometerSimple, ThermometerSimple, Snowflake];
+const valioIcons = [HouseLine, Leaf, ShieldCheck, Drop];
 
 function Header() {
   const [open, setOpen] = useState(false);
 
   return (
     <header className="site-header">
-      <div className="header-inner">
-        <nav className="desktop-nav desktop-nav-left" aria-label="主导航">
-          {navItems.slice(0, 2).map((item) => (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
+      <div className="shell header-inner">
         <a className="brand-link" href="#top" aria-label="Lefin 乐芬首页">
           <img src={logoUrl} alt="Lefin 乐芬" />
         </a>
 
-        <nav className="desktop-nav desktop-nav-right" aria-label="辅助导航">
-          {navItems.slice(2).map((item) => (
+        <nav className="desktop-nav" aria-label="主导航">
+          {navItems.map((item) => (
             <a key={item.href} href={item.href}>
               {item.label}
             </a>
           ))}
         </nav>
 
-        <a className="header-cta" href="#contact">
-          联系我们
-        </a>
+        <div className="header-contact" aria-label="联系方式">
+          <a href="tel:4008084066">
+            <Phone size={16} weight="bold" />
+            <span>400-8084066</span>
+          </a>
+          <a href="mailto:support@lefin.com.cn">
+            <EnvelopeSimple size={16} weight="bold" />
+            <span>support@lefin.com.cn</span>
+          </a>
+        </div>
 
         <button
           className="icon-button mobile-menu-button"
@@ -73,7 +80,7 @@ function Header() {
           aria-label="打开导航菜单"
           onClick={() => setOpen(true)}
         >
-          <List size={24} weight="bold" />
+          <List size={23} weight="bold" />
         </button>
       </div>
 
@@ -97,8 +104,8 @@ function Header() {
                   {item.label}
                 </a>
               ))}
-              <a href="#contact" onClick={() => setOpen(false)}>
-                联系我们
+              <a href="tel:4008084066" onClick={() => setOpen(false)}>
+                400-8084066
               </a>
             </nav>
           </div>
@@ -111,82 +118,102 @@ function Header() {
 function Hero() {
   return (
     <section className="hero-section" id="top">
-      <div className="hero-copy">
-        <p className="section-kicker">NFP Not From Powder</p>
-        <h1 aria-label="拒绝复溶，重构鲜活">
-          <span>拒绝复溶，</span>
-          <span>重构鲜活</span>
-        </h1>
-        <p className="hero-lede">
-          源自芬兰 Valio 的纯净奶源，以高占比液态湿法工艺一次性成粉，让配方从源头保持鲜活。
-        </p>
-        <div className="hero-actions">
+      <div className="shell hero-grid">
+        <div className="hero-copy">
+          <p className="section-kicker">科学湿法工艺</p>
+          <h1 aria-label="拒绝复溶，重构鲜活">
+            <span>拒绝复溶，</span>
+            <span>重构鲜活</span>
+          </h1>
+          <p className="hero-lede">高占比液态湿法工艺，还原天然鲜活营养</p>
+
+          <div className="hero-metrics" aria-label="乐芬核心数据">
+            {heroMetrics.map((metric, index) => {
+              const Icon = metricIcons[index];
+              return (
+                <div className="hero-metric" key={metric.title}>
+                  <Icon size={25} weight="regular" />
+                  <strong>{metric.title}</strong>
+                  <span>{metric.value}</span>
+                  <small>{metric.subtitle}</small>
+                </div>
+              );
+            })}
+          </div>
+
           <a className="primary-action" href="#nfp">
-            了解 NFP 工艺
-            <ArrowRight size={18} weight="bold" />
-          </a>
-          <a className="secondary-action" href="#products">
-            查看乐芬婴配
+            了解科学湿法工艺
+            <ArrowRight size={17} weight="bold" />
           </a>
         </div>
-        <dl className="hero-stats" aria-label="乐芬核心数据">
-          <div>
-            <dt>90%</dt>
-            <dd>一二段液态成粉率</dd>
-          </div>
-          <div>
-            <dt>98%</dt>
-            <dd>三段液态成粉率</dd>
-          </div>
-          <div>
-            <dt>Valio</dt>
-            <dd>芬兰乳品工厂</dd>
-          </div>
-        </dl>
       </div>
+      <img className="hero-visual" src={heroUrl} alt="乐芬湿法工艺工厂与三段产品展示" />
+    </section>
+  );
+}
 
-      <div className="hero-media">
-        <img src={heroFactoryUrl} alt="乐芬湿法工艺与产品罐展示" />
+function ProcessSection() {
+  return (
+    <section className="process-section page-section" id="nfp">
+      <div className="shell">
+        <div className="section-heading left">
+          <h2>湿法工艺全流程，高占比液态成粉</h2>
+          <p>从源头鲜奶，每一步都为保留营养价值</p>
+        </div>
+
+        <div className="process-flow">
+          {processSteps.map((step, index) => {
+            const Icon = processIcons[index];
+            return (
+              <article className="process-step" key={step.title}>
+                <div className="process-icon">
+                  <Icon size={35} weight="regular" />
+                </div>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </article>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
 }
 
-function StorySection() {
+function ValioSection() {
   return (
-    <section className="story-section page-band" id="story">
-      <div className="section-heading">
-        <p className="section-kicker">Finnish Origin</p>
-        <h2>乐芬和快乐的奶牛</h2>
-        <p>
-          Valio 农场的动物福利符合国际标准，健康的牛产出纯净、高品质的牛奶。乐芬将这份稳定奶源带入中国家庭。
-        </p>
+    <section className="valio-section page-section" id="story">
+      <div className="valio-media">
+        <img src={valioLakeUrl} alt="芬兰湖区与国旗，象征 Valio 奶源地" />
       </div>
-      <div className="story-grid">
-        <div className="story-media">
-          <img src={farmUrl} alt="芬兰牧场与奶牛" />
-        </div>
-        <div className="story-copy">
-          <div className="story-point">
-            <Cow size={28} weight="duotone" />
+      <div className="shell valio-grid">
+        <div aria-hidden="true" />
+        <div className="valio-copy">
+          <div className="valio-title-row">
             <div>
-              <h3>Valio 奶源管理</h3>
-              <p>牛奶质量严格监控，对抗生素残留零容忍，持续追求高等级奶源品质。</p>
+              <h2>Valio芬兰奶源，纯净之源</h2>
+              <p>
+                源自芬兰百年乳企 Valio，北纬纯净奶源带，自有牧场，从牧场到工厂全程可追溯。
+              </p>
+            </div>
+            <div className="valio-badge">
+              <strong>Valio</strong>
+              <span>来自芬兰</span>
+              <small>Since 1905</small>
             </div>
           </div>
-          <div className="story-point">
-            <Leaf size={28} weight="duotone" />
-            <div>
-              <h3>从自然到配方</h3>
-              <p>以贴近自然的育儿理念为出发点，围绕蛋白质、脂肪、乳糖等营养吸收设计配方。</p>
-            </div>
-          </div>
-          <div className="story-point">
-            <ShieldCheck size={28} weight="duotone" />
-            <div>
-              <h3>原罐引进</h3>
-              <p>全系列通过中国婴儿配方奶粉新国标二次注册，面向中国消费者提供清晰本地化标签。</p>
-            </div>
+
+          <div className="valio-points">
+            {valioPoints.map((point, index) => {
+              const Icon = valioIcons[index];
+              return (
+                <article className="valio-point" key={point.title}>
+                  <Icon size={30} weight="regular" />
+                  <h3>{point.title}</h3>
+                  <p>{point.body}</p>
+                </article>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -196,100 +223,104 @@ function StorySection() {
 
 function ProductsSection() {
   return (
-    <section className="products-section" id="products">
-      <div className="product-copy">
-        <p className="section-kicker">Lefin Infant Formula</p>
-        <h2>乐芬全段位婴幼儿配方奶粉</h2>
-        <p>
-          以三段产品为视觉代表，延展覆盖不同月龄阶段。产品图根据你提供的罐装实物重新优化，用于官网展示。
-        </p>
-        <div className="stage-list" aria-label="产品阶段">
-          {productStages.map((item) => (
-            <article className="stage-item" key={item.stage}>
-              <span>{item.stage}</span>
-              <h3>{item.age}</h3>
-              <p>{item.copy}</p>
-            </article>
-          ))}
+    <section className="products-section page-section" id="products">
+      <div className="shell">
+        <div className="section-heading left">
+          <h2>科学分段，精准满足成长所需</h2>
+          <p>针对不同成长阶段的营养需求，科学配比</p>
         </div>
-      </div>
-      <div className="product-visual">
-        <img src={productUrl} alt="乐芬三段幼儿配方奶粉产品罐" />
+
+        <div className="product-lineup">
+          <img src={productLineupUrl} alt="乐芬一段、二段、三段婴幼儿配方奶粉产品线" />
+          <div className="stage-cards">
+            {productStages.map((stage) => (
+              <article className={`stage-card ${stage.accent}`} key={stage.stage}>
+                <div className="stage-title">
+                  <strong>{stage.stage}</strong>
+                  <span>{stage.age}</span>
+                </div>
+                <ul>
+                  {stage.points.map((point) => (
+                    <li key={point}>
+                      <CheckCircle size={15} weight="fill" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
-function NfpSection() {
+function RatioSection() {
   return (
-    <section className="nfp-section page-band" id="nfp">
-      <div className="section-heading">
-        <p className="section-kicker">NFP Not From Powder</p>
-        <h2>高占比液态湿法工艺</h2>
-        <p>
-          乐芬以液态奶源入料，减少复溶步骤，把「鲜活」落实到生产路径、配方比例与质量管理。
-        </p>
-      </div>
-
-      <div className="process-grid">
-        {processSteps.map((step, index) => {
-          const Icon = iconForStep[index];
-          return (
-            <article className="process-step" key={step.title}>
-              <Icon size={30} weight="duotone" />
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
-            </article>
-          );
-        })}
-      </div>
-
-      <div className="ratio-panel" aria-label="液态入料配比">
-        <div>
-          <p>一、二段</p>
-          <strong>4 : 1 : 1</strong>
-          <span>脱盐乳清源液 / 脱脂牛乳 / 稀奶油</span>
+    <section className="ratio-section page-section">
+      <div className="shell">
+        <div className="section-heading left compact">
+          <h2>配方主料配比</h2>
+          <p>科学配比核心营养，给宝宝更好的营养支持</p>
         </div>
-        <div>
-          <p>三段</p>
-          <strong>5 : 5 : 2</strong>
-          <span>更契合 12 月龄后幼儿成长阶段</span>
+
+        <div className="ratio-grid">
+          <article className="ratio-card">
+            <span className="ratio-label">1段</span>
+            <strong>4 : 1 : 1</strong>
+            <p>乳清蛋白 : 酪蛋白 : 乳脂</p>
+            <div className="droplet-row">
+              <Drop className="drop-large" size={82} weight="fill" />
+              <Drop className="drop-medium" size={58} weight="fill" />
+              <Drop className="drop-small" size={38} weight="fill" />
+            </div>
+          </article>
+          <article className="ratio-card">
+            <span className="ratio-label green">2段 / 3段</span>
+            <strong>5 : 5 : 2</strong>
+            <p>乳清蛋白 : 酪蛋白 : 乳脂</p>
+            <div className="droplet-row">
+              <Drop className="drop-large" size={82} weight="fill" />
+              <Drop className="drop-medium" size={58} weight="fill" />
+              <Drop className="drop-small" size={38} weight="fill" />
+            </div>
+          </article>
         </div>
+        <p className="ratio-note">*以上配比为配方主料比例，具体详情请参考产品包装。</p>
       </div>
     </section>
   );
 }
 
 function FaqSection() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="faq-section" aria-labelledby="faq-title">
-      <div className="section-heading">
-        <p className="section-kicker">Frequently Asked Questions</p>
-        <h2 id="faq-title">常见问答</h2>
-      </div>
-      <div className="faq-list">
-        {faqItems.map((item, index) => {
-          const isOpen = index === openIndex;
-          return (
-            <article className="faq-item" key={item.question}>
-              <button
-                type="button"
-                aria-expanded={isOpen}
-                aria-controls={`faq-answer-${index}`}
-                onClick={() => setOpenIndex(isOpen ? -1 : index)}
-              >
-                <span>{item.question}</span>
-                <CaretDown size={18} weight="bold" />
-              </button>
-              <p id={`faq-answer-${index}`} hidden={!isOpen}>
-                {item.answer}
-              </p>
-            </article>
-          );
-        })}
+    <section className="faq-section page-section">
+      <div className="shell">
+        <div className="section-heading left compact">
+          <h2>常见问答</h2>
+        </div>
+
+        <div className="faq-grid">
+          {faqItems.map((item, index) => {
+            const open = openIndex === index;
+            return (
+              <article className="faq-item" key={item.question}>
+                <button
+                  type="button"
+                  aria-expanded={open}
+                  onClick={() => setOpenIndex(open ? null : index)}
+                >
+                  <span>{item.question}</span>
+                  <CaretDown size={18} weight="bold" />
+                </button>
+                {open ? <p>{item.answer}</p> : null}
+              </article>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -300,91 +331,92 @@ function ContactSection() {
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [submitted, setSubmitted] = useState(false);
 
-  const hasErrors = useMemo(() => Object.keys(errors).length > 0, [errors]);
-
-  function updateField(field: keyof ContactFormValues, value: string) {
+  const updateField = (field: keyof ContactFormValues, value: string) => {
     setValues((current) => ({ ...current, [field]: value }));
+    setErrors((current) => ({ ...current, [field]: undefined }));
     setSubmitted(false);
-    setErrors((current) => {
-      if (!current[field]) {
-        return current;
-      }
-      const next = { ...current };
-      delete next[field];
-      return next;
-    });
-  }
+  };
 
-  function submitForm(event: FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors = validateContactForm(values);
     setErrors(nextErrors);
     setSubmitted(Object.keys(nextErrors).length === 0);
-  }
+  };
 
   return (
-    <section className="contact-section page-band" id="contact">
-      <div className="contact-info" id="about">
-        <p className="section-kicker">About Lefin China</p>
-        <h2>上海乐玢国际贸易有限公司</h2>
-        <p>
-          成立于 2021 年，长期从事母婴食品进出口、销售业务以及电子商务，是芬兰 Lefin 乐芬婴幼儿配方奶粉的中国区总代理。
-        </p>
-        <ul className="contact-list">
-          <li>
-            <MapPin size={20} weight="duotone" />
-            上海市金山区山阳镇山富东路 55 弄 4 号 1 幢 2 层
-          </li>
-          <li>
-            <Phone size={20} weight="duotone" />
-            400-8084066
-          </li>
-          <li>
-            <EnvelopeSimple size={20} weight="duotone" />
-            support@lefin.com.cn
-          </li>
-        </ul>
-      </div>
+    <section className="contact-section" id="about">
+      <div className="shell contact-grid">
+        <div className="contact-info">
+          <h2>
+            如需了解更多，
+            <span>欢迎与我们联系</span>
+          </h2>
+          <div className="contact-methods">
+            <a href="tel:4008084066">
+              <Phone size={36} weight="regular" />
+              <span>
+                <strong>400-808 4066</strong>
+                <small>周一至周日 9:00-18:00</small>
+              </span>
+            </a>
+            <a href="mailto:support@lefin.com.cn">
+              <EnvelopeSimple size={36} weight="regular" />
+              <span>
+                <strong>support@lefin.com.cn</strong>
+                <small>我们将尽快回复您</small>
+              </span>
+            </a>
+          </div>
+        </div>
 
-      <form className="contact-form" onSubmit={submitForm} noValidate>
-        <label>
-          姓名
-          <input
-            value={values.name}
-            onChange={(event) => updateField("name", event.target.value)}
-            aria-invalid={Boolean(errors.name)}
-          />
-          {errors.name ? <span className="field-error">{errors.name}</span> : null}
-        </label>
-        <label>
-          Email
-          <input
-            type="email"
-            value={values.email}
-            onChange={(event) => updateField("email", event.target.value)}
-            aria-invalid={Boolean(errors.email)}
-          />
-          {errors.email ? <span className="field-error">{errors.email}</span> : null}
-        </label>
-        <label>
-          咨询内容
-          <textarea
-            rows={5}
-            value={values.message}
-            onChange={(event) => updateField("message", event.target.value)}
-            aria-invalid={Boolean(errors.message)}
-          />
-          {errors.message ? <span className="field-error">{errors.message}</span> : null}
-        </label>
-        <button type="submit">发送信息</button>
-        {hasErrors ? <p className="form-note">请完善表单后再提交。</p> : null}
-        {submitted ? (
-          <p className="form-success">
-            <CheckCircle size={18} weight="fill" />
-            信息已记录，我们会尽快联系您。
-          </p>
-        ) : null}
-      </form>
+        <form className="contact-form" onSubmit={handleSubmit} noValidate>
+          <h3>在线留言</h3>
+          <div className="form-row">
+            <label>
+              <span>姓名</span>
+              <input
+                value={values.name}
+                onChange={(event) => updateField("name", event.target.value)}
+                placeholder="您的姓名"
+              />
+              {errors.name ? <small>{errors.name}</small> : null}
+            </label>
+            <label>
+              <span>手机号码</span>
+              <input
+                value={values.phone}
+                onChange={(event) => updateField("phone", event.target.value)}
+                placeholder="手机号码"
+              />
+              {errors.phone ? <small>{errors.phone}</small> : null}
+            </label>
+            <label>
+              <span>选择咨询类型</span>
+              <select value={values.topic} onChange={(event) => updateField("topic", event.target.value)}>
+                <option value="">选择咨询类型</option>
+                <option value="产品咨询">产品咨询</option>
+                <option value="渠道合作">渠道合作</option>
+                <option value="售后服务">售后服务</option>
+              </select>
+              {errors.topic ? <small>{errors.topic}</small> : null}
+            </label>
+          </div>
+          <label className="message-field">
+            <span>请填写您的留言内容</span>
+            <textarea
+              value={values.message}
+              onChange={(event) => updateField("message", event.target.value)}
+              placeholder="请填写您的留言内容"
+            />
+            {errors.message ? <small>{errors.message}</small> : null}
+          </label>
+          {submitted ? <p className="success-message">留言已提交，我们会尽快联系您。</p> : null}
+          <button className="submit-button" type="submit">
+            提交
+          </button>
+        </form>
+      </div>
     </section>
   );
 }
@@ -392,26 +424,17 @@ function ContactSection() {
 function Footer() {
   return (
     <footer className="site-footer">
-      <div>
-        <img src={logoUrl} alt="Lefin 乐芬" />
-        <p>Lefin 乐芬 | 源自芬兰 Valio，NFP 重构鲜活。</p>
+      <div className="shell footer-inner">
+        <nav aria-label="页脚导航">
+          {navItems.map((item) => (
+            <a key={item.href} href={item.href}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <p>© 2024 Lefin 乐芬. All Rights Reserved.</p>
+        <p>沪ICP备202406xxxx号-1</p>
       </div>
-      <div className="footer-links">
-        <a href="https://www.valio.com/" target="_blank" rel="noreferrer">
-          Valio（维利奥）
-        </a>
-        <a href="https://www.valio.com.cn/" target="_blank" rel="noreferrer">
-          蔚优中国
-        </a>
-        <a href="https://cloud.lefin.com.cn/" target="_blank" rel="noreferrer">
-          乐芬云
-        </a>
-      </div>
-      <p className="icp">
-        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">
-          沪ICP备2023025946号-4
-        </a>
-      </p>
     </footer>
   );
 }
@@ -422,9 +445,10 @@ export default function App() {
       <Header />
       <main>
         <Hero />
-        <StorySection />
+        <ProcessSection />
+        <ValioSection />
         <ProductsSection />
-        <NfpSection />
+        <RatioSection />
         <FaqSection />
         <ContactSection />
       </main>

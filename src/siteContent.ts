@@ -3,6 +3,11 @@ export type NavItem = {
   href: string;
 };
 
+export type ProcessStep = {
+  title: string;
+  body: string;
+};
+
 export type FaqItem = {
   question: string;
   answer: string;
@@ -10,7 +15,8 @@ export type FaqItem = {
 
 export type ContactFormValues = {
   name: string;
-  email: string;
+  phone: string;
+  topic: string;
   message: string;
 };
 
@@ -23,86 +29,126 @@ export const navItems: NavItem[] = [
   { label: "关于我们", href: "#about" }
 ];
 
-export const processSteps = [
+export const processSteps: ProcessStep[] = [
   {
-    title: "纯净液态奶源",
-    body: "以液态奶源作为核心入料，减少复溶带来的营养流失与二次污染风险。"
+    title: "优质奶源",
+    body: "Valio芬兰自有牧场，鲜牛乳直供。"
   },
   {
-    title: "高占比湿法工艺",
-    body: "一、二段液态成粉率高达90%，三段液态成粉率高达98%，让配方更贴近鲜活状态。"
+    title: "低温净化",
+    body: "低温过滤，保留天然活性。"
   },
   {
-    title: "配方比例管理",
-    body: "一、二段主料液态入料配比为4:1:1，三段调整为5:5:2，匹配不同月龄营养需求。"
+    title: "膜过滤浓缩",
+    body: "多级膜过滤，提升浓度。"
   },
   {
-    title: "原罐进口注册",
-    body: "乐芬全系列通过中国婴儿配方奶粉新国标二次注册，原罐引进维利奥产品。"
+    title: "低温均质",
+    body: "温和均质，保护营养结构。"
+  },
+  {
+    title: "低温喷雾干燥",
+    body: "低温瞬时成粉，锁住鲜活营养。"
+  },
+  {
+    title: "无菌冷却包装",
+    body: "洁净灌装，安心保鲜。"
   }
+];
+
+export const heroMetrics = [
+  {
+    title: "不从粉起步",
+    value: "NFP™",
+    subtitle: "Not From Powder"
+  },
+  {
+    title: "一二段液态成粉率",
+    value: "高达90%",
+    subtitle: "高占比液态工艺"
+  },
+  {
+    title: "三段液态成粉率",
+    value: "高达98%",
+    subtitle: "重构鲜活"
+  }
+];
+
+export const valioPoints = [
+  { title: "自有牧场", body: "严格管理" },
+  { title: "优质饲养", body: "天然纯净" },
+  { title: "严控标准", body: "品质如一" },
+  { title: "全程可追溯", body: "安心透明" }
 ];
 
 export const productStages = [
   {
     stage: "1段",
     age: "0-6月龄",
-    copy: "为新生宝宝设计，强调温和亲和与基础营养支持。"
+    accent: "blue",
+    points: ["温和易吸收", "助力自然舒适", "科学配比"]
   },
   {
     stage: "2段",
     age: "6-12月龄",
-    copy: "延续液态湿法工艺，适配辅食探索期的营养节奏。"
+    accent: "green",
+    points: ["营养进阶", "助力成长发育", "均衡配方"]
   },
   {
     stage: "3段",
     age: "12-36月龄",
-    copy: "以幼儿成长为核心，采用更契合三段需求的液态入料配比。"
+    accent: "orange",
+    points: ["营养全面", "助力活力成长", "多维营养组合"]
   }
 ];
 
 export const faqItems: FaqItem[] = [
   {
-    question: "什么是湿法工艺，相对干法的优势？",
+    question: "什么是NFP™（Not From Powder）？",
     answer:
-      "乐芬奶粉湿法工艺是液态奶一次性成粉，保证产品鲜活，减少二次污染风险，更接近母乳的口感。干法工艺经过基粉复溶，可能造成营养流失和变性。"
+      "NFP™ 表示不从粉开始，不通过基粉复溶再加工，而是以液态奶源高占比入料，一次性成粉，减少复溶带来的营养流失和二次污染风险。"
   },
   {
-    question: "什么是稀奶油？",
+    question: "一二段液态成粉率90%，三段98%是什么意思？",
     answer:
-      "稀奶油源自鲜牛乳，富含优质脂肪酸，与母乳中的乳脂成分相似，有利于宝宝消化吸收。"
+      "这是指配方中液态原料直接参与成粉的比例。乐芬通过高占比液态湿法工艺，让不同段位都尽量保留鲜活奶源特点。"
   },
   {
-    question: "英文包装和中文包装有什么区别？",
+    question: "乐芬奶粉真的拒绝复溶吗？",
     answer:
-      "乐芬英文包装和中文包装都是芬兰 Valio 工厂原装进口。英文包装为线上跨境渠道专供。"
+      "乐芬坚持高占比液态湿法工艺，减少基粉复溶路径，让产品从源头到成粉更贴近鲜活状态。"
   },
   {
-    question: "配料表怎么没有 OPO、DHA、ARA、卵磷脂？",
+    question: "乐芬奶粉的奶源来自哪里？",
     answer:
-      "乐芬配料表中可见添加珍稀稀奶油，稀奶油天然含有 OPO、乳脂球膜、ARA、卵磷脂等营养成分。"
+      "乐芬源自芬兰 Valio 奶源体系，依托自有牧场、质量监控和全程追溯，确保稳定纯净。"
   },
   {
-    question: "如何辨别产品真伪？",
+    question: "为什么采用高占比液态湿法工艺？",
     answer:
-      "每一罐产品都可查询到唯一对应的授权门店。请在正规门店渠道购买，并获取对应会员权益。"
+      "湿法工艺能在液态阶段让营养均匀融合，减少干混和复溶步骤，更有利于配方均衡与品质稳定。"
   },
   {
-    question: "为何全进口的乐芬使用中文标识？",
+    question: "如何选择适合宝宝的奶粉段位？",
     answer:
-      "中国法规规定在中国出售的婴幼儿配方奶粉必须使用中文标签。乐芬也希望中国消费者能更清晰了解产品科学性。"
+      "通常可按月龄选择：1段适合0-6月龄，2段适合6-12月龄，3段适合12-36月龄；具体喂养建议应结合宝宝实际情况咨询专业人士。"
   }
 ];
 
 export function validateContactForm(values: ContactFormValues): ContactFormErrors {
   const errors: ContactFormErrors = {};
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phonePattern = /^1[3-9]\d{9}$/;
 
   if (!values.name.trim()) {
     errors.name = "请输入姓名";
   }
 
-  if (!emailPattern.test(values.email.trim())) {
-    errors.email = "请输入有效邮箱";
+  if (!phonePattern.test(values.phone.trim())) {
+    errors.phone = "请输入有效手机号";
+  }
+
+  if (!values.topic.trim()) {
+    errors.topic = "请选择咨询类型";
   }
 
   if (!values.message.trim()) {
