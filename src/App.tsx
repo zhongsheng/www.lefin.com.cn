@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {
   ArrowRight,
   CaretDown,
@@ -44,6 +44,28 @@ const emptyForm: ContactFormValues = {
 const metricIcons = [Drop, CrownSimple, ChartLineUp];
 const processIcons = [Drop, Funnel, Factory, ThermometerSimple, ThermometerSimple, Snowflake];
 const valioIcons = [HouseLine, Leaf, ShieldCheck, Drop];
+
+function useHashScroll() {
+  useEffect(() => {
+    const scrollToHash = () => {
+      const id = window.location.hash.slice(1);
+      if (!id) {
+        return;
+      }
+
+      const target = document.getElementById(decodeURIComponent(id));
+      window.requestAnimationFrame(() => target?.scrollIntoView?.({ block: "start" }));
+    };
+
+    const timer = window.setTimeout(scrollToHash, 0);
+    window.addEventListener("hashchange", scrollToHash);
+
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("hashchange", scrollToHash);
+    };
+  }, []);
+}
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -440,6 +462,8 @@ function Footer() {
 }
 
 export default function App() {
+  useHashScroll();
+
   return (
     <>
       <Header />
