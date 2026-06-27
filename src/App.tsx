@@ -24,11 +24,15 @@ import stage3ProductUrl from "./assets/products/lefin-stage-3.webp";
 import {
   ContactFormErrors,
   ContactFormValues,
+  contactHighlights,
   faqItems,
+  heroProofs,
   navItems,
   processSteps,
   productStages,
+  ratioHighlights,
   validateContactForm,
+  valioHighlights,
   valioPoints
 } from "./siteContent";
 
@@ -142,13 +146,25 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="hero-section" id="top" aria-label="乐芬科学配方，陪伴成长每一步">
-      <img
-        className="hero-banner"
-        src={heroBannerUrl}
-        alt="乐芬科学配方，陪伴成长每一步，一段二段三段婴幼儿配方奶粉产品展示"
-      />
-    </section>
+    <>
+      <section className="hero-section" id="top" aria-label="乐芬科学配方，陪伴成长每一步">
+        <img
+          className="hero-banner"
+          src={heroBannerUrl}
+          alt="乐芬科学配方，陪伴成长每一步，一段二段三段婴幼儿配方奶粉产品展示"
+        />
+      </section>
+      <section className="hero-proof-section" aria-label="乐芬品牌要点">
+        <div className="shell hero-proof-grid">
+          {heroProofs.map((proof) => (
+            <article className="hero-proof" key={proof.title}>
+              <strong>{proof.title}</strong>
+              <span>{proof.body}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -171,6 +187,7 @@ function ProcessSection() {
                 </div>
                 <h3>{step.title}</h3>
                 <p>{step.body}</p>
+                <small>{step.detail}</small>
               </article>
             );
           })}
@@ -195,6 +212,11 @@ function ValioSection() {
               <p>
                 源自芬兰百年乳企 Valio，北纬纯净奶源带，自有牧场，从牧场到工厂全程可追溯。
               </p>
+              <div className="valio-highlight-list" aria-label="Valio奶源优势">
+                {valioHighlights.map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
             </div>
             <div className="valio-badge">
               <strong>Valio</strong>
@@ -211,6 +233,7 @@ function ValioSection() {
                   <Icon size={30} weight="regular" />
                   <h3>{point.title}</h3>
                   <p>{point.body}</p>
+                  <small>{point.detail}</small>
                 </article>
               );
             })}
@@ -249,6 +272,7 @@ function ProductsSection() {
                   <strong>{stage.stage}</strong>
                   <span>{stage.age}</span>
                 </div>
+                <p className="stage-summary">{stage.summary}</p>
                 <ul>
                   {stage.points.map((point) => (
                     <li key={point}>
@@ -257,6 +281,11 @@ function ProductsSection() {
                     </li>
                   ))}
                 </ul>
+                <div className="stage-tags" aria-label={`${stage.stage}产品特点`}>
+                  {stage.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
               </article>
             ))}
           </div>
@@ -296,6 +325,14 @@ function RatioSection() {
               <Drop className="drop-small" size={38} weight="fill" />
             </div>
           </article>
+        </div>
+        <div className="ratio-highlights">
+          {ratioHighlights.map((item) => (
+            <article className="ratio-highlight" key={item.title}>
+              <strong>{item.title}</strong>
+              <p>{item.body}</p>
+            </article>
+          ))}
         </div>
         <p className="ratio-note">*以上配比为配方主料比例，具体详情请参考产品包装。</p>
       </div>
@@ -377,6 +414,17 @@ function ContactSection() {
                 <small>我们将尽快回复您</small>
               </span>
             </a>
+          </div>
+          <div className="contact-highlights" aria-label="服务支持范围">
+            {contactHighlights.map((item) => (
+              <article key={item.title}>
+                <CheckCircle size={17} weight="fill" />
+                <span>
+                  <strong>{item.title}</strong>
+                  <small>{item.body}</small>
+                </span>
+              </article>
+            ))}
           </div>
         </div>
 

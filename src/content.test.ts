@@ -12,9 +12,11 @@ describe("site content", () => {
   });
 
   it("keeps source-aligned FAQ coverage", () => {
-    expect(faqItems).toHaveLength(6);
+    expect(faqItems).toHaveLength(8);
     expect(faqItems.map((item) => item.question)).toContain("什么是NFP™（Not From Powder）？");
     expect(faqItems.map((item) => item.question)).toContain("如何选择适合宝宝的奶粉段位？");
+    expect(faqItems.map((item) => item.question)).toContain("开罐后应如何保存？");
+    expect(faqItems.map((item) => item.question)).toContain("冲调时需要注意什么？");
   });
 
   it("models the six-step wet-process flow from the prototype", () => {
