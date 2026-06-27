@@ -7,12 +7,19 @@ describe("Lefin homepage", () => {
   it("renders the selected science-led hero and core sections", () => {
     render(<App />);
 
-    expect(screen.getByRole("heading", { level: 1, name: "拒绝复溶，重构鲜活" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: "乐芬科学配方，陪伴成长每一步，一段二段三段婴幼儿配方奶粉产品展示"
+      })
+    ).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "主导航" })).toBeInTheDocument();
     expect(screen.getByText("400-8084066")).toBeInTheDocument();
     expect(screen.getByText("湿法工艺全流程，高占比液态成粉")).toBeInTheDocument();
     expect(screen.getByText("Valio芬兰奶源，纯净之源")).toBeInTheDocument();
     expect(screen.getByText("科学分段，精准满足成长所需")).toBeInTheDocument();
+    expect(screen.getByAltText("乐芬一段婴儿配方奶粉 0-6月龄")).toBeInTheDocument();
+    expect(screen.getByAltText("乐芬二段较大婴儿配方奶粉 6-12月龄")).toBeInTheDocument();
+    expect(screen.getByAltText("乐芬三段幼儿配方奶粉 12-36月龄")).toBeInTheDocument();
   });
 
   it("opens the mobile navigation menu", async () => {

@@ -1,10 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import {
-  ArrowRight,
   CaretDown,
-  ChartLineUp,
   CheckCircle,
-  CrownSimple,
   Drop,
   EnvelopeSimple,
   Factory,
@@ -19,14 +16,15 @@ import {
   X
 } from "@phosphor-icons/react";
 import logoUrl from "./assets/brand/lefin-logo.webp";
-import heroUrl from "./assets/generated/prototype-hero.webp";
-import productLineupUrl from "./assets/generated/product-lineup.webp";
+import heroBannerUrl from "./assets/hero/lefin-home-hero.webp";
 import valioLakeUrl from "./assets/generated/valio-lake.webp";
+import stage1ProductUrl from "./assets/products/lefin-stage-1.webp";
+import stage2ProductUrl from "./assets/products/lefin-stage-2.webp";
+import stage3ProductUrl from "./assets/products/lefin-stage-3.webp";
 import {
   ContactFormErrors,
   ContactFormValues,
   faqItems,
-  heroMetrics,
   navItems,
   processSteps,
   productStages,
@@ -41,9 +39,14 @@ const emptyForm: ContactFormValues = {
   message: ""
 };
 
-const metricIcons = [Drop, CrownSimple, ChartLineUp];
 const processIcons = [Drop, Funnel, Factory, ThermometerSimple, ThermometerSimple, Snowflake];
 const valioIcons = [HouseLine, Leaf, ShieldCheck, Drop];
+const productImageUrls = [stage1ProductUrl, stage2ProductUrl, stage3ProductUrl];
+const productAltTexts = [
+  "乐芬一段婴儿配方奶粉 0-6月龄",
+  "乐芬二段较大婴儿配方奶粉 6-12月龄",
+  "乐芬三段幼儿配方奶粉 12-36月龄"
+];
 
 function useHashScroll() {
   useEffect(() => {
@@ -139,37 +142,12 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="hero-section" id="top">
-      <div className="shell hero-grid">
-        <div className="hero-copy">
-          <p className="section-kicker">科学湿法工艺</p>
-          <h1 aria-label="拒绝复溶，重构鲜活">
-            <span>拒绝复溶，</span>
-            <span>重构鲜活</span>
-          </h1>
-          <p className="hero-lede">高占比液态湿法工艺，还原天然鲜活营养</p>
-
-          <div className="hero-metrics" aria-label="乐芬核心数据">
-            {heroMetrics.map((metric, index) => {
-              const Icon = metricIcons[index];
-              return (
-                <div className="hero-metric" key={metric.title}>
-                  <Icon size={25} weight="regular" />
-                  <strong>{metric.title}</strong>
-                  <span>{metric.value}</span>
-                  <small>{metric.subtitle}</small>
-                </div>
-              );
-            })}
-          </div>
-
-          <a className="primary-action" href="#nfp">
-            了解科学湿法工艺
-            <ArrowRight size={17} weight="bold" />
-          </a>
-        </div>
-      </div>
-      <img className="hero-visual" src={heroUrl} alt="乐芬湿法工艺工厂与三段产品展示" />
+    <section className="hero-section" id="top" aria-label="乐芬科学配方，陪伴成长每一步">
+      <img
+        className="hero-banner"
+        src={heroBannerUrl}
+        alt="乐芬科学配方，陪伴成长每一步，一段二段三段婴幼儿配方奶粉产品展示"
+      />
     </section>
   );
 }
@@ -253,7 +231,17 @@ function ProductsSection() {
         </div>
 
         <div className="product-lineup">
-          <img src={productLineupUrl} alt="乐芬一段、二段、三段婴幼儿配方奶粉产品线" />
+          <div className="product-cans" aria-label="乐芬一段、二段、三段婴幼儿配方奶粉产品线">
+            {productStages.map((stage, index) => (
+              <figure className={`product-can-card ${stage.accent}`} key={`${stage.stage}-product`}>
+                <img src={productImageUrls[index]} alt={productAltTexts[index]} />
+                <figcaption>
+                  <strong>{stage.stage}</strong>
+                  <span>{stage.age}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
           <div className="stage-cards">
             {productStages.map((stage) => (
               <article className={`stage-card ${stage.accent}`} key={stage.stage}>

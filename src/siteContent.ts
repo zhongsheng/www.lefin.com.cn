@@ -56,24 +56,6 @@ export const processSteps: ProcessStep[] = [
   }
 ];
 
-export const heroMetrics = [
-  {
-    title: "不从粉起步",
-    value: "NFP™",
-    subtitle: "Not From Powder"
-  },
-  {
-    title: "一二段液态成粉率",
-    value: "高达90%",
-    subtitle: "高占比液态工艺"
-  },
-  {
-    title: "三段液态成粉率",
-    value: "高达98%",
-    subtitle: "重构鲜活"
-  }
-];
-
 export const valioPoints = [
   { title: "自有牧场", body: "严格管理" },
   { title: "优质饲养", body: "天然纯净" },
