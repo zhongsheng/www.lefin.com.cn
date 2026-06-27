@@ -66,7 +66,8 @@ button {
 }
 
 .site-header {
-  background: linear-gradient(180deg, #004a9e 0%, #003d8c 100%);
+  background: linear-gradient(180deg, #003f91 0%, #002f78 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12), 0 10px 24px rgba(0, 35, 92, 0.14);
   color: #ffffff;
   height: 52px;
   position: sticky;
@@ -84,14 +85,21 @@ button {
 
 .brand-link {
   align-items: center;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  box-shadow: 0 8px 20px rgba(0, 25, 82, 0.18);
   display: flex;
-  height: 52px;
+  height: 42px;
+  justify-content: center;
+  padding: 3px 11px;
+  width: max-content;
 }
 
 .brand-link img {
-  height: 37px;
+  height: 34px;
   object-fit: contain;
-  width: 105px;
+  width: 106px;
 }
 
 .desktop-nav {
@@ -1036,7 +1044,7 @@ button {
   }
 
   .brand-link {
-    height: 60px;
+    height: 44px;
   }
 
   .desktop-nav {
@@ -1197,7 +1205,7 @@ button {
   }
 
   .brand-link img {
-    height: 42px;
+    height: 34px;
     width: 100px;
   }
 
