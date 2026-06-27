@@ -66,13 +66,15 @@ button {
 }
 
 .site-header {
-  background: linear-gradient(180deg, #003987 0%, #002a6f 100%);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12), 0 10px 24px rgba(0, 35, 92, 0.16);
-  color: #ffffff;
+  background: linear-gradient(180deg, rgba(248, 252, 255, 0.97) 0%, rgba(232, 246, 255, 0.97) 100%);
+  border-bottom: 1px solid rgba(166, 205, 238, 0.8);
+  box-shadow: 0 10px 26px rgba(0, 55, 126, 0.08);
+  color: var(--brand-dark);
   height: 52px;
   position: sticky;
   top: 0;
   z-index: 30;
+  backdrop-filter: blur(14px);
 }
 
 .header-inner {
@@ -97,7 +99,7 @@ button {
 }
 
 .brand-link img {
-  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.88)) drop-shadow(0 2px 5px rgba(0, 18, 58, 0.36));
+  filter: drop-shadow(0 2px 5px rgba(0, 48, 112, 0.2));
   height: 42px;
   object-fit: contain;
   width: 118px;
@@ -118,12 +120,14 @@ button {
   font-size: 12px;
   font-weight: 700;
   line-height: 1;
-  opacity: 0.94;
+  color: var(--brand-dark);
+  opacity: 0.92;
   transition: opacity 160ms ease, transform 160ms ease;
 }
 
 .desktop-nav a:hover,
 .header-contact a:hover {
+  color: var(--brand);
   opacity: 1;
   transform: translateY(-1px);
 }
@@ -141,10 +145,10 @@ button {
 
 .icon-button {
   align-items: center;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(12, 74, 152, 0.24);
   border-radius: 8px;
-  color: #ffffff;
+  color: var(--brand-dark);
   display: inline-flex;
   height: 42px;
   justify-content: center;
