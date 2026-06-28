@@ -26,6 +26,7 @@ import {
   ContactFormValues,
   contactHighlights,
   faqItems,
+  brandStoryCommitments,
   heroProofs,
   navItems,
   processSteps,
@@ -33,6 +34,7 @@ import {
   scienceSupports,
   sampleReviews,
   ratioHighlights,
+  brandStoryPoints,
   brandMilestones,
   validateContactForm,
   valioHighlights,
@@ -203,29 +205,65 @@ function ProcessSection() {
 function ValioSection() {
   return (
     <section className="valio-section page-section" id="story">
+      <div className="shell">
+        <div className="section-heading left compact">
+          <h2>品牌故事</h2>
+          <p>让妈妈更安心的品牌不是靠口号，是靠每一个可验证的节点。</p>
+        </div>
+      </div>
       <div className="valio-media">
         <img src={valioLakeUrl} alt="芬兰湖区与国旗，象征 Valio 奶源地" />
       </div>
       <div className="shell valio-grid">
         <div aria-hidden="true" />
         <div className="valio-copy">
+          <p className="valio-kicker">Valio芬兰奶源，纯净之源</p>
+          <p className="valio-intro">
+            源自芬兰百年乳企 Valio，北纬纯净奶源带，奶源与工厂协同，强调原料、工艺、服务三段可信交付。
+          </p>
           <div className="valio-title-row">
-            <div>
-              <h2>Valio芬兰奶源，纯净之源</h2>
-              <p>
-                源自芬兰百年乳企 Valio，北纬纯净奶源带，自有牧场，从牧场到工厂全程可追溯。
-              </p>
+            <div className="valio-highlights-wrap">
               <div className="valio-highlight-list" aria-label="Valio奶源优势">
                 {valioHighlights.map((item) => (
                   <span key={item}>{item}</span>
                 ))}
               </div>
+              <div className="valio-badge">
+                <strong>Valio</strong>
+                <span>来自芬兰</span>
+                <small>Since 1905</small>
+              </div>
             </div>
-            <div className="valio-badge">
-              <strong>Valio</strong>
-              <span>来自芬兰</span>
-              <small>Since 1905</small>
-            </div>
+            <p className="valio-story-lead">
+              乐芬正在将“科学工艺”与“家庭日常决策”打通，尽量减少家长对“为什么要这样做”的焦虑。
+            </p>
+          </div>
+
+          <div className="valio-story-grid" aria-label="品牌故事结构">
+            {brandStoryPoints.map((item) => (
+              <article className="valio-story-item" key={item.title}>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+                <ul>
+                  {item.details.map((detail) => (
+                    <li key={detail}>
+                      <CheckCircle size={15} weight="fill" />
+                      <span>{detail}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <div className="valio-commit-grid" aria-label="品牌承诺">
+            {brandStoryCommitments.map((item) => (
+              <article className="valio-commit-item" key={item.title}>
+                <small>{item.value}</small>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
           </div>
 
           <div className="valio-points">

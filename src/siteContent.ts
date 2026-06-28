@@ -26,6 +26,18 @@ export type BrandMilestone = {
   description: string;
 };
 
+export type BrandStoryPoint = {
+  title: string;
+  body: string;
+  details: string[];
+};
+
+export type BrandStoryCommitment = {
+  title: string;
+  body: string;
+  value: string;
+};
+
 export type SampleReview = {
   name: string;
   stage: string;
@@ -96,6 +108,54 @@ export const valioPoints = [
   { title: "优质饲养", body: "天然纯净", detail: "关注奶牛健康与饲养环境" },
   { title: "严控标准", body: "品质如一", detail: "多环节检测守住品质边界" },
   { title: "全程可追溯", body: "安心透明", detail: "从奶源到产品批次可追溯" }
+];
+
+export const brandStoryPoints: BrandStoryPoint[] = [
+  {
+    title: "品牌来源",
+    body: "乐芬从“奶粉也能更简单、更透明”出发，将母婴营养的关键路径拆解为可被验证的工艺节点。",
+    details: [
+      "依托芬兰牧场生态，保留原料本身质量优势",
+      "从奶源到工厂每一环节都保持参数一致性",
+      "把可追溯信息前移到用户可读页面"
+    ]
+  },
+  {
+    title: "研发方向",
+    body: "坚持以月龄阶段为核心，围绕消化特点与活跃程度做分段营养策略，并通过配方与工艺协同持续迭代。",
+    details: [
+      "以阶段化营养曲线为主线构建产品分段",
+      "引入“可验证工艺数据”作为研发反馈依据",
+      "持续复盘家长反馈，迭代日常使用体验"
+    ]
+  },
+  {
+    title: "服务目标",
+    body: "让每个家长都能理解‘为什么选这个’，并在冲调和使用环节获得更清晰、可执行的指导。",
+    details: [
+      "将复杂工艺转化成家长可读指引",
+      "提供冲调、选择段位和保存建议说明",
+      "在咨询与反馈流程里保证响应速度"
+    ]
+  }
+];
+
+export const brandStoryCommitments: BrandStoryCommitment[] = [
+  {
+    title: "透明可追溯",
+    body: "所有奶源与工艺关键参数保持记录与抽检留档，给用户提供可信的信息基础。",
+    value: "追溯闭环"
+  },
+  {
+    title: "温和而坚定",
+    body: "以高占比液态湿法为主线，减少复溶风险，强调营养保鲜与口味友好并行。",
+    value: "高占比液态湿法"
+  },
+  {
+    title: "服务到位",
+    body: "从咨询、建议到售后问题，都保持统一话术和流程，尽量降低家长理解门槛。",
+    value: "咨询到位"
+  }
 ];
 
 export const valioHighlights = [

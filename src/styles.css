@@ -604,11 +604,32 @@ button {
   position: relative;
 }
 
+.valio-kicker {
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.valio-intro {
+  color: #4f6b8d;
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
 .valio-title-row {
   align-items: start;
   display: grid;
   gap: 22px;
   grid-template-columns: 1fr auto;
+}
+
+.valio-highlights-wrap {
+  align-items: start;
+  display: grid;
+  gap: 14px;
 }
 
 .valio-badge {
@@ -644,6 +665,14 @@ button {
   margin-top: 3px;
 }
 
+.valio-story-lead {
+  color: #4f6b8d;
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 320px;
+}
+
 .valio-highlight-list {
   display: flex;
   flex-wrap: wrap;
@@ -668,6 +697,94 @@ button {
   gap: 14px;
   grid-template-columns: repeat(4, 1fr);
   margin-top: 20px;
+}
+
+.valio-story-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 16px;
+}
+
+.valio-story-item {
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid #dce9f5;
+  border-radius: 12px;
+  color: var(--brand-dark);
+  padding: 14px;
+}
+
+.valio-story-item h3 {
+  color: var(--brand-dark);
+  font-size: 14px;
+  line-height: 1.25;
+  margin: 0 0 6px;
+}
+
+.valio-story-item p {
+  color: #49698f;
+  font-size: 12px;
+  line-height: 1.55;
+  margin: 0 0 8px;
+}
+
+.valio-story-item ul {
+  margin: 0;
+  padding-left: 0;
+  display: grid;
+  gap: 6px;
+  list-style: none;
+}
+
+.valio-story-item li {
+  align-items: start;
+  color: #4f6b8d;
+  display: flex;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.valio-story-item li svg {
+  flex: 0 0 auto;
+  color: var(--brand);
+  margin-top: 2px;
+}
+
+.valio-commit-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 14px;
+}
+
+.valio-commit-item {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid #dce9f5;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.valio-commit-item small {
+  color: #7f5e3f;
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.valio-commit-item h3 {
+  color: #5a3d27;
+  font-size: 14px;
+  margin: 0 0 6px;
+}
+
+.valio-commit-item p {
+  color: #4f6b8d;
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.5;
 }
 
 .valio-point {
@@ -1951,6 +2068,8 @@ button {
 
   .process-flow,
   .valio-points,
+  .valio-story-grid,
+  .valio-commit-grid,
   .stage-cards,
   .science-grid,
   .review-grid,
@@ -2010,6 +2129,15 @@ button {
 
   .valio-title-row {
     grid-template-columns: 1fr;
+  }
+
+  .valio-kicker {
+    margin-bottom: 4px;
+  }
+
+  .valio-intro,
+  .valio-story-lead {
+    max-width: 100%;
   }
 
   .valio-badge {
