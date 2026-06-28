@@ -30,7 +30,10 @@ import {
   navItems,
   processSteps,
   productStages,
+  scienceSupports,
+  sampleReviews,
   ratioHighlights,
+  brandMilestones,
   validateContactForm,
   valioHighlights,
   valioPoints
@@ -244,6 +247,46 @@ function ValioSection() {
   );
 }
 
+function ScienceSection() {
+  return (
+    <section className="science-section page-section" id="science">
+      <div className="shell">
+        <div className="section-heading left compact">
+          <h2>科学加持 · 样本化说明</h2>
+          <p>以下为样本化展示内容，后续可替换为企业内部真实资料</p>
+        </div>
+
+        <div className="science-grid">
+          {scienceSupports.map((item) => (
+            <article className="science-card" key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+              <ul>
+                {item.points.map((point) => (
+                  <li key={point}>
+                    <CheckCircle size={15} weight="fill" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        <div className="science-timeline" aria-label="品牌里程碑示例">
+          {brandMilestones.map((item) => (
+            <article className="timeline-item" key={item.phase}>
+              <small>{item.phase}</small>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ProductsSection() {
   return (
     <section className="products-section page-section" id="products">
@@ -335,6 +378,32 @@ function RatioSection() {
           ))}
         </div>
         <p className="ratio-note">*以上配比为配方主料比例，具体详情请参考产品包装。</p>
+      </div>
+    </section>
+  );
+}
+
+function ReviewsSection() {
+  return (
+    <section className="reviews-section page-section" id="reviews">
+      <div className="shell">
+        <div className="section-heading left compact">
+          <h2>用户与服务反馈（样例）</h2>
+          <p>用于页面展示结构，后续可替换为真实用户案例与第三方验证</p>
+        </div>
+
+        <div className="review-grid">
+          {sampleReviews.map((item) => (
+            <article className="review-card" key={item.name}>
+              <p>“{item.quote}”</p>
+              <div className="review-meta">
+                <strong>{item.name}</strong>
+                <span>{item.stage}</span>
+              </div>
+              <small>{item.note}</small>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -507,8 +576,10 @@ export default function App() {
         <Hero />
         <ProcessSection />
         <ValioSection />
+        <ScienceSection />
         <ProductsSection />
         <RatioSection />
+        <ReviewsSection />
         <FaqSection />
         <ContactSection />
       </main>

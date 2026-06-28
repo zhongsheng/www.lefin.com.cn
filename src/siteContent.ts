@@ -14,6 +14,25 @@ export type FaqItem = {
   answer: string;
 };
 
+export type ScienceSupport = {
+  title: string;
+  body: string;
+  points: string[];
+};
+
+export type BrandMilestone = {
+  phase: string;
+  title: string;
+  description: string;
+};
+
+export type SampleReview = {
+  name: string;
+  stage: string;
+  quote: string;
+  note: string;
+};
+
 export type ContactFormValues = {
   name: string;
   phone: string;
@@ -32,7 +51,9 @@ export const heroProofs = [
 
 export const navItems: NavItem[] = [
   { label: "品牌故事", href: "#story" },
+  { label: "科学解读", href: "#science" },
   { label: "乐芬婴配", href: "#products" },
+  { label: "用户口碑", href: "#reviews" },
   { label: "NFP™", href: "#nfp" },
   { label: "关于我们", href: "#about" }
 ];
@@ -81,6 +102,68 @@ export const valioHighlights = [
   "北纬纯净奶源带",
   "百年乳企 Valio 体系",
   "牧场到工厂链路管理"
+];
+
+export const scienceSupports: ScienceSupport[] = [
+  {
+    title: "奶源与配方透明化",
+    body: "从奶牛健康、奶源采集、运输到成粉，关键节点可追溯，给消费者清晰信息路径。",
+    points: ["牧场到厂区温控记录", "原料批次统一留档", "配方配比可追踪", "生产参数可审计"]
+  },
+  {
+    title: "温和分段营养设计",
+    body: "基于月龄阶段与消化特点，分段调整营养曲线，让宝宝获得更贴近生长节律的营养支持。",
+    points: ["0-6月注重消化舒适", "6-12月强化辅食衔接", "12月后支持活力与成长", "支持医生建议的个体化使用"]
+  },
+  {
+    title: "安全与稳定并重",
+    body: "在保持营养活性的同时，建立多层次质量把关流程，用工程化参数守住稳定性。",
+    points: ["原奶预检与复测", "湿法工艺关键温控", "洁净灌装链路监控", "样本抽检与留样追踪"]
+  }
+];
+
+export const brandMilestones: BrandMilestone[] = [
+  {
+    phase: "样本一期",
+    title: "配方框架搭建",
+    description: "完成核心液态湿法工艺路线与月龄分段营养模型。"
+  },
+  {
+    phase: "样本二期",
+    title: "奶源与工艺联动",
+    description: "建立原奶品质和工艺参数联动策略，保证每一批次都在稳定窗口内。"
+  },
+  {
+    phase: "样本三期",
+    title: "配方体验优化",
+    description: "通过多轮内部体验，持续优化口感、溶解速度和日常使用体验。"
+  },
+  {
+    phase: "样本四期",
+    title: "渠道协作升级",
+    description: "拓展咨询和售后流程，让产品信息、建议和反馈形成闭环。"
+  }
+];
+
+export const sampleReviews: SampleReview[] = [
+  {
+    name: "王妈妈",
+    stage: "宝宝9个月",
+    note: "一位妈妈的体验报告（样例）",
+    quote: "从接受样品到实际用量后，宝宝适应得很快，喂养节奏更稳定。"
+  },
+  {
+    name: "刘爸爸",
+    stage: "宝宝15个月",
+    note: "家庭反馈样本（样例）",
+    quote: "冲调后奶粉非常好用，配合辅食更容易安排喂养时间。"
+  },
+  {
+    name: "育婴咨询师",
+    stage: "服务案例",
+    note: "咨询反馈样本（样例）",
+    quote: "分阶段解释配方逻辑后，家长对产品理解更清晰，选择更有依据。"
+  }
 ];
 
 export const productStages = [

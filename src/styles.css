@@ -1574,6 +1574,151 @@ button {
   color: #b36e4b;
 }
 
+.science-section {
+  background: linear-gradient(180deg, #fff7ed 0, #fff1e3 58%, #fff7ed 100%);
+}
+
+.science-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.science-card {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #ead3c2;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(126, 82, 54, 0.08);
+  padding: 16px;
+  min-width: 0;
+}
+
+.science-card h3 {
+  color: #5a3d27;
+  font-size: 15px;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.science-card p {
+  color: #6d5039;
+  font-size: 12px;
+  line-height: 1.55;
+  margin: 10px 0 12px;
+}
+
+.science-card ul {
+  margin: 0;
+  padding-left: 0;
+  display: grid;
+  gap: 8px;
+  list-style: none;
+}
+
+.science-card li {
+  color: #5f4632;
+  display: flex;
+  align-items: start;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+.science-card li svg {
+  color: #b36e4b;
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.science-timeline {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.timeline-item {
+  background: #fff9f3;
+  border: 1px solid #eed5bf;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(130, 81, 47, 0.08);
+  padding: 12px 14px;
+  min-width: 0;
+}
+
+.timeline-item small {
+  color: #7f5e3f;
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.timeline-item h3 {
+  color: #5f3a26;
+  font-size: 14px;
+  margin: 0 0 4px;
+}
+
+.timeline-item p {
+  color: #6b5240;
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.reviews-section {
+  background: linear-gradient(180deg, #fff9f3 0, #fff2e4 100%);
+}
+
+.review-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.review-card {
+  background: linear-gradient(180deg, #fff, #fff8ef);
+  border: 1px solid #ecd7c8;
+  border-radius: 14px;
+  box-shadow: 0 10px 20px rgba(132, 87, 56, 0.08);
+  min-width: 0;
+  padding: 14px;
+}
+
+.review-card p {
+  color: #523b29;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.review-meta {
+  display: grid;
+  gap: 3px;
+  margin-top: 10px;
+}
+
+.review-meta strong {
+  color: #5b3b25;
+  display: block;
+}
+
+.review-meta span {
+  color: #8b664a;
+  display: block;
+  font-size: 12px;
+}
+
+.review-card small {
+  color: #9a7862;
+  display: inline-block;
+  font-size: 11px;
+  margin-top: 8px;
+}
+
 .products-section {
   background: linear-gradient(180deg, #fffaf4 0, #fff4e9 100%);
 }
@@ -1756,8 +1901,17 @@ button {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .science-grid,
+  .review-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .stage-cards {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .science-timeline {
+    grid-template-columns: 1fr;
   }
 
   .contact-form {
@@ -1798,6 +1952,8 @@ button {
   .process-flow,
   .valio-points,
   .stage-cards,
+  .science-grid,
+  .review-grid,
   .ratio-grid,
   .ratio-highlights,
   .faq-grid,

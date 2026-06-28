@@ -5,7 +5,9 @@ describe("site content", () => {
   it("keeps the official navigation labels in source order", () => {
     expect(navItems.map((item) => item.label)).toEqual([
       "品牌故事",
+      "科学解读",
       "乐芬婴配",
+      "用户口碑",
       "NFP™",
       "关于我们"
     ]);
