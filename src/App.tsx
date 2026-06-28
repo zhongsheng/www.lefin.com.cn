@@ -1,44 +1,28 @@
 import { FormEvent, useEffect, useState } from "react";
-import {
-  CaretDown,
-  CheckCircle,
-  Drop,
-  EnvelopeSimple,
-  Factory,
-  Funnel,
-  HouseLine,
-  Leaf,
-  List,
-  Phone,
-  ShieldCheck,
-  Snowflake,
-  ThermometerSimple,
-  X
-} from "@phosphor-icons/react";
+import { CaretDown, EnvelopeSimple, List, Phone, X } from "@phosphor-icons/react";
 import logoUrl from "./assets/brand/lefin-logo.webp";
-import heroBannerUrl from "./assets/hero/lefin-home-hero.webp";
-import valioLakeUrl from "./assets/generated/valio-lake.webp";
-import stage1ProductUrl from "./assets/products/lefin-stage-1.webp";
-import stage2ProductUrl from "./assets/products/lefin-stage-2.webp";
-import stage3ProductUrl from "./assets/products/lefin-stage-3.webp";
+import heroDesktopUrl from "./assets/apple/hero-desktop.webp";
+import heroMobileUrl from "./assets/apple/hero-mobile.webp";
+import productsDesktopUrl from "./assets/apple/products-desktop.webp";
+import productsMobileUrl from "./assets/apple/products-mobile.webp";
+import nfpDesktopUrl from "./assets/apple/nfp-desktop.webp";
+import nfpMobileUrl from "./assets/apple/nfp-mobile.webp";
+import sourceDesktopUrl from "./assets/apple/source-desktop.webp";
+import sourceMobileUrl from "./assets/apple/source-mobile.webp";
 import {
   ContactFormErrors,
   ContactFormValues,
-  contactHighlights,
+  contactTopics,
   faqItems,
-  brandStoryCommitments,
-  heroProofs,
+  heroContent,
   navItems,
-  processSteps,
+  nfpContent,
+  nfpFeatures,
+  productContent,
   productStages,
-  scienceSupports,
-  sampleReviews,
-  ratioHighlights,
-  brandStoryPoints,
-  brandMilestones,
-  validateContactForm,
-  valioHighlights,
-  valioPoints
+  promiseItems,
+  sourceContent,
+  validateContactForm
 } from "./siteContent";
 
 const emptyForm: ContactFormValues = {
@@ -48,14 +32,13 @@ const emptyForm: ContactFormValues = {
   message: ""
 };
 
-const processIcons = [Drop, Funnel, Factory, ThermometerSimple, ThermometerSimple, Snowflake];
-const valioIcons = [HouseLine, Leaf, ShieldCheck, Drop];
-const productImageUrls = [stage1ProductUrl, stage2ProductUrl, stage3ProductUrl];
-const productAltTexts = [
-  "乐芬一段婴儿配方奶粉 0-6月龄",
-  "乐芬二段较大婴儿配方奶粉 6-12月龄",
-  "乐芬三段幼儿配方奶粉 12-36月龄"
-];
+type ResponsiveImageProps = {
+  desktop: string;
+  mobile: string;
+  alt: string;
+  className?: string;
+  loading?: "eager" | "lazy";
+};
 
 function useHashScroll() {
   useEffect(() => {
@@ -79,13 +62,22 @@ function useHashScroll() {
   }, []);
 }
 
+function ResponsiveImage({ desktop, mobile, alt, className, loading = "lazy" }: ResponsiveImageProps) {
+  return (
+    <picture className={className}>
+      <source media="(max-width: 899px)" srcSet={mobile} />
+      <img src={desktop} alt={alt} loading={loading} decoding="async" />
+    </picture>
+  );
+}
+
 function Header() {
   const [open, setOpen] = useState(false);
 
   return (
     <header className="site-header">
-      <div className="shell header-inner">
-        <a className="brand-link" href="#top" aria-label="Lefin 乐芬首页">
+      <div className="header-shell">
+        <a className="brand-mark" href="#top" aria-label="Lefin 乐芬首页">
           <img src={logoUrl} alt="Lefin 乐芬" />
         </a>
 
@@ -97,16 +89,10 @@ function Header() {
           ))}
         </nav>
 
-        <div className="header-contact" aria-label="联系方式">
-          <a href="tel:4008084066">
-            <Phone size={16} weight="bold" />
-            <span>400-8084066</span>
-          </a>
-          <a href="mailto:support@lefin.com.cn">
-            <EnvelopeSimple size={16} weight="bold" />
-            <span>support@lefin.com.cn</span>
-          </a>
-        </div>
+        <a className="header-contact" href="tel:4008084066">
+          <Phone size={15} weight="bold" />
+          <span>400-8084066</span>
+        </a>
 
         <button
           className="icon-button mobile-menu-button"
@@ -114,7 +100,7 @@ function Header() {
           aria-label="打开导航菜单"
           onClick={() => setOpen(true)}
         >
-          <List size={23} weight="bold" />
+          <List size={22} weight="bold" />
         </button>
       </div>
 
@@ -149,338 +135,113 @@ function Header() {
   );
 }
 
-function Hero() {
+function HeroSection() {
   return (
-    <>
-      <section className="hero-section" id="top" aria-label="乐芬科学配方，陪伴成长每一步">
-        <img
-          className="hero-banner"
-          src={heroBannerUrl}
-          alt="乐芬科学配方，陪伴成长每一步，一段二段三段婴幼儿配方奶粉产品展示"
-        />
-      </section>
-      <section className="hero-proof-section" aria-label="乐芬品牌要点">
-        <div className="shell hero-proof-grid">
-          {heroProofs.map((proof) => (
-            <article className="hero-proof" key={proof.title}>
-              <strong>{proof.title}</strong>
-              <span>{proof.body}</span>
-            </article>
-          ))}
-        </div>
-      </section>
-    </>
-  );
-}
-
-function ProcessSection() {
-  return (
-    <section className="process-section page-section" id="nfp">
-      <div className="shell">
-        <div className="section-heading left">
-          <h2>湿法工艺全流程，高占比液态成粉</h2>
-          <p>从源头鲜奶，每一步都为保留营养价值</p>
-        </div>
-
-        <div className="process-flow">
-          {processSteps.map((step, index) => {
-            const Icon = processIcons[index];
-            return (
-              <article className="process-step" key={step.title}>
-                <div className="process-icon">
-                  <Icon size={35} weight="regular" />
-                </div>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-                <small>{step.detail}</small>
-              </article>
-            );
-          })}
+    <section className="hero-section" id="top">
+      <div className="hero-copy">
+        <h1>{heroContent.title}</h1>
+        <p>{heroContent.subtitle}</p>
+        <div className="cta-row" aria-label="首页行动">
+          <a href={heroContent.primaryCta.href}>{heroContent.primaryCta.label}</a>
+          <a href={heroContent.secondaryCta.href}>{heroContent.secondaryCta.label}</a>
         </div>
       </div>
+      <ResponsiveImage
+        desktop={heroDesktopUrl}
+        mobile={heroMobileUrl}
+        alt={heroContent.alt}
+        className="hero-media"
+        loading="eager"
+      />
     </section>
   );
 }
 
-function ValioSection() {
+function ProductSection() {
   return (
-    <section className="valio-section page-section" id="story">
-      <div className="shell">
-        <div className="section-heading left compact">
-          <h2>品牌故事</h2>
-          <p>让妈妈更安心的品牌不是靠口号，是靠每一个可验证的节点。</p>
-        </div>
+    <section className="showcase-section product-section" id="products">
+      <div className="section-copy centered">
+        <h2>{productContent.title}</h2>
+        <p>{productContent.subtitle}</p>
       </div>
-      <div className="valio-media">
-        <img src={valioLakeUrl} alt="芬兰湖区与国旗，象征 Valio 奶源地" />
-      </div>
-      <div className="shell valio-grid">
-        <div aria-hidden="true" />
-        <div className="valio-copy">
-          <p className="valio-kicker">Valio芬兰奶源，纯净之源</p>
-          <p className="valio-intro">
-            源自芬兰百年乳企 Valio，北纬纯净奶源带，奶源与工厂协同，强调原料、工艺、服务三段可信交付。
-          </p>
-          <div className="valio-title-row">
-            <div className="valio-highlights-wrap">
-              <div className="valio-highlight-list" aria-label="Valio奶源优势">
-                {valioHighlights.map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-              <div className="valio-badge">
-                <strong>Valio</strong>
-                <span>来自芬兰</span>
-                <small>Since 1905</small>
-              </div>
-            </div>
-            <p className="valio-story-lead">
-              乐芬正在将“科学工艺”与“家庭日常决策”打通，尽量减少家长对“为什么要这样做”的焦虑。
-            </p>
-          </div>
-
-          <div className="valio-story-grid" aria-label="品牌故事结构">
-            {brandStoryPoints.map((item) => (
-              <article className="valio-story-item" key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-                <ul>
-                  {item.details.map((detail) => (
-                    <li key={detail}>
-                      <CheckCircle size={15} weight="fill" />
-                      <span>{detail}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-
-          <div className="valio-commit-grid" aria-label="品牌承诺">
-            {brandStoryCommitments.map((item) => (
-              <article className="valio-commit-item" key={item.title}>
-                <small>{item.value}</small>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </article>
-            ))}
-          </div>
-
-          <div className="valio-points">
-            {valioPoints.map((point, index) => {
-              const Icon = valioIcons[index];
-              return (
-                <article className="valio-point" key={point.title}>
-                  <Icon size={30} weight="regular" />
-                  <h3>{point.title}</h3>
-                  <p>{point.body}</p>
-                  <small>{point.detail}</small>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ScienceSection() {
-  return (
-    <section className="science-section page-section" id="science">
-      <div className="shell">
-        <div className="section-heading left compact">
-          <h2>科学加持 · 样本化说明</h2>
-          <p>以下为样本化展示内容，后续可替换为企业内部真实资料</p>
-        </div>
-
-        <div className="science-grid">
-          {scienceSupports.map((item) => (
-            <article className="science-card" key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-              <ul>
-                {item.points.map((point) => (
-                  <li key={point}>
-                    <CheckCircle size={15} weight="fill" />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-
-        <div className="science-timeline" aria-label="品牌里程碑示例">
-          {brandMilestones.map((item) => (
-            <article className="timeline-item" key={item.phase}>
-              <small>{item.phase}</small>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ProductsSection() {
-  return (
-    <section className="products-section page-section" id="products">
-      <div className="shell">
-        <div className="section-heading left">
-          <h2>科学分段，精准满足成长所需</h2>
-          <p>针对不同成长阶段的营养需求，科学配比</p>
-        </div>
-
-        <div className="product-lineup">
-          <div className="product-cans" aria-label="乐芬一段、二段、三段婴幼儿配方奶粉产品线">
-            {productStages.map((stage, index) => (
-              <figure className={`product-can-card ${stage.accent}`} key={`${stage.stage}-product`}>
-                <img src={productImageUrls[index]} alt={productAltTexts[index]} />
-                <figcaption>
-                  <strong>{stage.stage}</strong>
-                  <span>{stage.age}</span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <div className="stage-cards">
-            {productStages.map((stage) => (
-              <article className={`stage-card ${stage.accent}`} key={stage.stage}>
-                <div className="stage-title">
-                  <strong>{stage.stage}</strong>
-                  <span>{stage.age}</span>
-                </div>
-                <p className="stage-summary">{stage.summary}</p>
-                <ul>
-                  {stage.points.map((point) => (
-                    <li key={point}>
-                      <CheckCircle size={15} weight="fill" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="stage-tags" aria-label={`${stage.stage}产品特点`}>
-                  {stage.tags.map((tag) => (
-                    <span key={tag}>{tag}</span>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function RatioSection() {
-  return (
-    <section className="ratio-section page-section">
-      <div className="shell">
-        <div className="section-heading left compact">
-          <h2>配方主料配比</h2>
-          <p>科学配比核心营养，给宝宝更好的营养支持</p>
-        </div>
-
-        <div className="ratio-grid">
-          <article className="ratio-card">
-            <span className="ratio-label">1段</span>
-            <strong>4 : 1 : 1</strong>
-            <p>乳清蛋白 : 酪蛋白 : 乳脂</p>
-            <div className="droplet-row">
-              <Drop className="drop-large" size={82} weight="fill" />
-              <Drop className="drop-medium" size={58} weight="fill" />
-              <Drop className="drop-small" size={38} weight="fill" />
-            </div>
+      <ResponsiveImage
+        desktop={productsDesktopUrl}
+        mobile={productsMobileUrl}
+        alt={productContent.alt}
+        className="showcase-media"
+      />
+      <div className="stage-row" aria-label="乐芬产品段位">
+        {productStages.map((stage) => (
+          <article key={stage.stage}>
+            <strong>{stage.stage}</strong>
+            <span>{stage.age}</span>
+            <h3>{stage.name}</h3>
+            <p>{stage.summary}</p>
           </article>
-          <article className="ratio-card">
-            <span className="ratio-label green">2段 / 3段</span>
-            <strong>5 : 5 : 2</strong>
-            <p>乳清蛋白 : 酪蛋白 : 乳脂</p>
-            <div className="droplet-row">
-              <Drop className="drop-large" size={82} weight="fill" />
-              <Drop className="drop-medium" size={58} weight="fill" />
-              <Drop className="drop-small" size={38} weight="fill" />
-            </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function NfpSection() {
+  return (
+    <section className="showcase-section nfp-section" id="nfp">
+      <div className="section-copy centered">
+        <h2>{nfpContent.title}</h2>
+        <p>{nfpContent.subtitle}</p>
+      </div>
+      <ResponsiveImage desktop={nfpDesktopUrl} mobile={nfpMobileUrl} alt={nfpContent.alt} className="showcase-media" />
+      <div className="feature-row" aria-label="NFP工艺要点">
+        {nfpFeatures.map((item) => (
+          <article key={item.title}>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
           </article>
-        </div>
-        <div className="ratio-highlights">
-          {ratioHighlights.map((item) => (
-            <article className="ratio-highlight" key={item.title}>
-              <strong>{item.title}</strong>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-        <p className="ratio-note">*以上配比为配方主料比例，具体详情请参考产品包装。</p>
+        ))}
       </div>
     </section>
   );
 }
 
-function ReviewsSection() {
+function SourceSection() {
   return (
-    <section className="reviews-section page-section" id="reviews">
-      <div className="shell">
-        <div className="section-heading left compact">
-          <h2>用户与服务反馈（样例）</h2>
-          <p>用于页面展示结构，后续可替换为真实用户案例与第三方验证</p>
-        </div>
-
-        <div className="review-grid">
-          {sampleReviews.map((item) => (
-            <article className="review-card" key={item.name}>
-              <p>“{item.quote}”</p>
-              <div className="review-meta">
-                <strong>{item.name}</strong>
-                <span>{item.stage}</span>
-              </div>
-              <small>{item.note}</small>
-            </article>
-          ))}
-        </div>
+    <section className="source-section" id="source">
+      <ResponsiveImage
+        desktop={sourceDesktopUrl}
+        mobile={sourceMobileUrl}
+        alt={sourceContent.alt}
+        className="source-media"
+      />
+      <div className="source-copy">
+        <h2>{sourceContent.title}</h2>
+        <p>{sourceContent.subtitle}</p>
       </div>
     </section>
   );
 }
 
-function FaqSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
+function PromiseSection() {
   return (
-    <section className="faq-section page-section">
-      <div className="shell">
-        <div className="section-heading left compact">
-          <h2>常见问答</h2>
-        </div>
-
-        <div className="faq-grid">
-          {faqItems.map((item, index) => {
-            const open = openIndex === index;
-            return (
-              <article className="faq-item" key={item.question}>
-                <button
-                  type="button"
-                  aria-expanded={open}
-                  onClick={() => setOpenIndex(open ? null : index)}
-                >
-                  <span>{item.question}</span>
-                  <CaretDown size={18} weight="bold" />
-                </button>
-                {open ? <p>{item.answer}</p> : null}
-              </article>
-            );
-          })}
-        </div>
+    <section className="promise-section" id="promise">
+      <div className="section-copy centered">
+        <h2>少一点复杂，多一点确定。</h2>
+        <p>围绕真实包装、清晰工艺和可触达服务，建立官网表达。</p>
+      </div>
+      <div className="promise-grid">
+        {promiseItems.map((item) => (
+          <article key={item.title}>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
       </div>
     </section>
   );
 }
 
-function ContactSection() {
+function FaqContactSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [values, setValues] = useState<ContactFormValues>(emptyForm);
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [submitted, setSubmitted] = useState(false);
@@ -499,76 +260,76 @@ function ContactSection() {
   };
 
   return (
-    <section className="contact-section" id="about">
-      <div className="shell contact-grid">
-        <div className="contact-info">
-          <h2>
-            如需了解更多，
-            <span>欢迎与我们联系</span>
-          </h2>
-          <div className="contact-methods">
-            <a href="tel:4008084066">
-              <Phone size={36} weight="regular" />
-              <span>
-                <strong>400-808 4066</strong>
-                <small>周一至周日 9:00-18:00</small>
-              </span>
-            </a>
-            <a href="mailto:support@lefin.com.cn">
-              <EnvelopeSimple size={36} weight="regular" />
-              <span>
-                <strong>support@lefin.com.cn</strong>
-                <small>我们将尽快回复您</small>
-              </span>
-            </a>
-          </div>
-          <div className="contact-highlights" aria-label="服务支持范围">
-            {contactHighlights.map((item) => (
-              <article key={item.title}>
-                <CheckCircle size={17} weight="fill" />
-                <span>
-                  <strong>{item.title}</strong>
-                  <small>{item.body}</small>
-                </span>
-              </article>
-            ))}
-          </div>
+    <section className="faq-contact-section" id="contact">
+      <div className="faq-column">
+        <div className="section-copy left">
+          <h2>常见问题。</h2>
+          <p>保留必要信息，让选择和使用更清楚。</p>
         </div>
+        <div className="faq-list">
+          {faqItems.map((item, index) => {
+            const open = openIndex === index;
+            return (
+              <article className="faq-item" key={item.question}>
+                <button type="button" aria-expanded={open} onClick={() => setOpenIndex(open ? null : index)}>
+                  <span>{item.question}</span>
+                  <CaretDown size={18} weight="bold" />
+                </button>
+                {open ? <p>{item.answer}</p> : null}
+              </article>
+            );
+          })}
+        </div>
+      </div>
 
+      <div className="contact-column">
+        <div className="section-copy left">
+          <h2>联系乐芬。</h2>
+          <p>产品、渠道与售后问题，我们会尽快跟进。</p>
+        </div>
+        <div className="contact-methods">
+          <a href="tel:4008084066">
+            <Phone size={22} weight="bold" />
+            <span>400-808 4066</span>
+          </a>
+          <a href="mailto:support@lefin.com.cn">
+            <EnvelopeSimple size={22} weight="bold" />
+            <span>support@lefin.com.cn</span>
+          </a>
+        </div>
         <form className="contact-form" onSubmit={handleSubmit} noValidate>
-          <h3>在线留言</h3>
-          <div className="form-row">
-            <label>
-              <span>姓名</span>
-              <input
-                value={values.name}
-                onChange={(event) => updateField("name", event.target.value)}
-                placeholder="您的姓名"
-              />
-              {errors.name ? <small>{errors.name}</small> : null}
-            </label>
-            <label>
-              <span>手机号码</span>
-              <input
-                value={values.phone}
-                onChange={(event) => updateField("phone", event.target.value)}
-                placeholder="手机号码"
-              />
-              {errors.phone ? <small>{errors.phone}</small> : null}
-            </label>
-            <label>
-              <span>选择咨询类型</span>
-              <select value={values.topic} onChange={(event) => updateField("topic", event.target.value)}>
-                <option value="">选择咨询类型</option>
-                <option value="产品咨询">产品咨询</option>
-                <option value="渠道合作">渠道合作</option>
-                <option value="售后服务">售后服务</option>
-              </select>
-              {errors.topic ? <small>{errors.topic}</small> : null}
-            </label>
-          </div>
-          <label className="message-field">
-            <span>请填写您的留言内容</span>
+          <label>
+            <span>姓名</span>
+            <input
+              value={values.name}
+              onChange={(event) => updateField("name", event.target.value)}
+              placeholder="您的姓名"
+            />
+            {errors.name ? <small>{errors.name}</small> : null}
+          </label>
+          <label>
+            <span>手机号码</span>
+            <input
+              value={values.phone}
+              onChange={(event) => updateField("phone", event.target.value)}
+              placeholder="手机号码"
+            />
+            {errors.phone ? <small>{errors.phone}</small> : null}
+          </label>
+          <label>
+            <span>选择咨询类型</span>
+            <select value={values.topic} onChange={(event) => updateField("topic", event.target.value)}>
+              <option value="">选择咨询类型</option>
+              {contactTopics.map((topic) => (
+                <option value={topic} key={topic}>
+                  {topic}
+                </option>
+              ))}
+            </select>
+            {errors.topic ? <small>{errors.topic}</small> : null}
+          </label>
+          <label>
+            <span>留言内容</span>
             <textarea
               value={values.message}
               onChange={(event) => updateField("message", event.target.value)}
@@ -589,17 +350,19 @@ function ContactSection() {
 function Footer() {
   return (
     <footer className="site-footer">
-      <div className="shell footer-inner">
-        <nav aria-label="页脚导航">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
-        <p>© 2024 Lefin 乐芬. All Rights Reserved.</p>
-        <p>沪ICP备202406xxxx号-1</p>
+      <div>
+        <strong>Lefin 乐芬</strong>
+        <p>© 2026 Lefin 乐芬. All Rights Reserved.</p>
       </div>
+      <nav aria-label="页脚导航">
+        {navItems.map((item) => (
+          <a key={item.href} href={item.href}>
+            {item.label}
+          </a>
+        ))}
+        <a href="/lefin-site.md">Markdown 内容</a>
+      </nav>
+      <p>沪ICP备202406xxxx号-1</p>
     </footer>
   );
 }
@@ -611,15 +374,12 @@ export default function App() {
     <>
       <Header />
       <main>
-        <Hero />
-        <ProcessSection />
-        <ValioSection />
-        <ScienceSection />
-        <ProductsSection />
-        <RatioSection />
-        <ReviewsSection />
-        <FaqSection />
-        <ContactSection />
+        <HeroSection />
+        <ProductSection />
+        <NfpSection />
+        <SourceSection />
+        <PromiseSection />
+        <FaqContactSection />
       </main>
       <Footer />
     </>

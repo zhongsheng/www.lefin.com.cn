@@ -1,0 +1,19 @@
+# Lefin 乐芬官网
+
+Site: https://www.lefin.com.cn/
+Language: zh-CN
+Primary content: /lefin-site.md
+
+## Summary
+乐芬官网介绍乐芬婴幼儿配方奶粉、NFP™ Not From Powder 高占比液态湿法工艺、Valio 芬兰奶源体系、产品段位和联系方式。
+
+## Important URLs
+- Homepage: https://www.lefin.com.cn/
+- Markdown content: https://www.lefin.com.cn/lefin-site.md
+- Sitemap: https://www.lefin.com.cn/sitemap.xml
+- Robots: https://www.lefin.com.cn/robots.txt
+
+## Contact
+- Phone: 400-8084066
+- Email: support@lefin.com.cn
+

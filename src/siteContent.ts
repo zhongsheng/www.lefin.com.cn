@@ -3,46 +3,21 @@ export type NavItem = {
   href: string;
 };
 
-export type ProcessStep = {
+export type StageItem = {
+  stage: string;
+  age: string;
+  name: string;
+  summary: string;
+};
+
+export type FeatureItem = {
   title: string;
   body: string;
-  detail: string;
 };
 
 export type FaqItem = {
   question: string;
   answer: string;
-};
-
-export type ScienceSupport = {
-  title: string;
-  body: string;
-  points: string[];
-};
-
-export type BrandMilestone = {
-  phase: string;
-  title: string;
-  description: string;
-};
-
-export type BrandStoryPoint = {
-  title: string;
-  body: string;
-  details: string[];
-};
-
-export type BrandStoryCommitment = {
-  title: string;
-  body: string;
-  value: string;
-};
-
-export type SampleReview = {
-  name: string;
-  stage: string;
-  quote: string;
-  note: string;
 };
 
 export type ContactFormValues = {
@@ -54,255 +29,106 @@ export type ContactFormValues = {
 
 export type ContactFormErrors = Partial<Record<keyof ContactFormValues, string>>;
 
-export const heroProofs = [
-  { title: "科学分段", body: "覆盖 0-36 月龄关键成长阶段" },
-  { title: "湿法工艺", body: "液态阶段融合核心营养" },
-  { title: "芬兰奶源", body: "依托 Valio 奶源体系" },
-  { title: "品质追溯", body: "批次信息以产品包装为准" }
-];
-
 export const navItems: NavItem[] = [
-  { label: "品牌故事", href: "#story" },
-  { label: "科学解读", href: "#science" },
   { label: "乐芬婴配", href: "#products" },
-  { label: "用户口碑", href: "#reviews" },
-  { label: "NFP™", href: "#nfp" },
-  { label: "关于我们", href: "#about" }
+  { label: "NFP工艺", href: "#nfp" },
+  { label: "Valio奶源", href: "#source" },
+  { label: "品牌承诺", href: "#promise" },
+  { label: "联系", href: "#contact" }
 ];
 
-export const processSteps: ProcessStep[] = [
-  {
-    title: "优质奶源",
-    body: "Valio芬兰自有牧场，鲜牛乳直供。",
-    detail: "从源头建立稳定奶源基础。"
-  },
-  {
-    title: "低温净化",
-    body: "低温过滤，保留天然活性。",
-    detail: "减少高温反复处理。"
-  },
-  {
-    title: "膜过滤浓缩",
-    body: "多级膜过滤，提升浓度。",
-    detail: "为液态配伍提供浓缩基底。"
-  },
-  {
-    title: "低温均质",
-    body: "温和均质，保护营养结构。",
-    detail: "让配方营养分布更均匀。"
-  },
-  {
-    title: "低温喷雾干燥",
-    body: "低温瞬时成粉，锁住鲜活营养。",
-    detail: "缩短从液态到成粉路径。"
-  },
-  {
-    title: "无菌冷却包装",
-    body: "洁净灌装，安心保鲜。",
-    detail: "包装密封守护稳定品质。"
-  }
-];
+export const heroContent = {
+  title: "乐芬婴幼儿配方奶粉",
+  subtitle: "科学湿法工艺，重构鲜活营养。",
+  primaryCta: { label: "了解产品", href: "#products" },
+  secondaryCta: { label: "查看 NFP 工艺", href: "#nfp" },
+  alt: "乐芬一段二段三段婴幼儿配方奶粉白底高级产品展示"
+};
 
-export const valioPoints = [
-  { title: "自有牧场", body: "严格管理", detail: "源头牧场体系稳定可控" },
-  { title: "优质饲养", body: "天然纯净", detail: "关注奶牛健康与饲养环境" },
-  { title: "严控标准", body: "品质如一", detail: "多环节检测守住品质边界" },
-  { title: "全程可追溯", body: "安心透明", detail: "从奶源到产品批次可追溯" }
-];
-
-export const brandStoryPoints: BrandStoryPoint[] = [
-  {
-    title: "品牌来源",
-    body: "乐芬从“奶粉也能更简单、更透明”出发，将母婴营养的关键路径拆解为可被验证的工艺节点。",
-    details: [
-      "依托芬兰牧场生态，保留原料本身质量优势",
-      "从奶源到工厂每一环节都保持参数一致性",
-      "把可追溯信息前移到用户可读页面"
-    ]
-  },
-  {
-    title: "研发方向",
-    body: "坚持以月龄阶段为核心，围绕消化特点与活跃程度做分段营养策略，并通过配方与工艺协同持续迭代。",
-    details: [
-      "以阶段化营养曲线为主线构建产品分段",
-      "引入“可验证工艺数据”作为研发反馈依据",
-      "持续复盘家长反馈，迭代日常使用体验"
-    ]
-  },
-  {
-    title: "服务目标",
-    body: "让每个家长都能理解‘为什么选这个’，并在冲调和使用环节获得更清晰、可执行的指导。",
-    details: [
-      "将复杂工艺转化成家长可读指引",
-      "提供冲调、选择段位和保存建议说明",
-      "在咨询与反馈流程里保证响应速度"
-    ]
-  }
-];
-
-export const brandStoryCommitments: BrandStoryCommitment[] = [
-  {
-    title: "透明可追溯",
-    body: "所有奶源与工艺关键参数保持记录与抽检留档，给用户提供可信的信息基础。",
-    value: "追溯闭环"
-  },
-  {
-    title: "温和而坚定",
-    body: "以高占比液态湿法为主线，减少复溶风险，强调营养保鲜与口味友好并行。",
-    value: "高占比液态湿法"
-  },
-  {
-    title: "服务到位",
-    body: "从咨询、建议到售后问题，都保持统一话术和流程，尽量降低家长理解门槛。",
-    value: "咨询到位"
-  }
-];
-
-export const valioHighlights = [
-  "北纬纯净奶源带",
-  "百年乳企 Valio 体系",
-  "牧场到工厂链路管理"
-];
-
-export const scienceSupports: ScienceSupport[] = [
-  {
-    title: "奶源与配方透明化",
-    body: "从奶牛健康、奶源采集、运输到成粉，关键节点可追溯，给消费者清晰信息路径。",
-    points: ["牧场到厂区温控记录", "原料批次统一留档", "配方配比可追踪", "生产参数可审计"]
-  },
-  {
-    title: "温和分段营养设计",
-    body: "基于月龄阶段与消化特点，分段调整营养曲线，让宝宝获得更贴近生长节律的营养支持。",
-    points: ["0-6月注重消化舒适", "6-12月强化辅食衔接", "12月后支持活力与成长", "支持医生建议的个体化使用"]
-  },
-  {
-    title: "安全与稳定并重",
-    body: "在保持营养活性的同时，建立多层次质量把关流程，用工程化参数守住稳定性。",
-    points: ["原奶预检与复测", "湿法工艺关键温控", "洁净灌装链路监控", "样本抽检与留样追踪"]
-  }
-];
-
-export const brandMilestones: BrandMilestone[] = [
-  {
-    phase: "样本一期",
-    title: "配方框架搭建",
-    description: "完成核心液态湿法工艺路线与月龄分段营养模型。"
-  },
-  {
-    phase: "样本二期",
-    title: "奶源与工艺联动",
-    description: "建立原奶品质和工艺参数联动策略，保证每一批次都在稳定窗口内。"
-  },
-  {
-    phase: "样本三期",
-    title: "配方体验优化",
-    description: "通过多轮内部体验，持续优化口感、溶解速度和日常使用体验。"
-  },
-  {
-    phase: "样本四期",
-    title: "渠道协作升级",
-    description: "拓展咨询和售后流程，让产品信息、建议和反馈形成闭环。"
-  }
-];
-
-export const sampleReviews: SampleReview[] = [
-  {
-    name: "王妈妈",
-    stage: "宝宝9个月",
-    note: "一位妈妈的体验报告（样例）",
-    quote: "从接受样品到实际用量后，宝宝适应得很快，喂养节奏更稳定。"
-  },
-  {
-    name: "刘爸爸",
-    stage: "宝宝15个月",
-    note: "家庭反馈样本（样例）",
-    quote: "冲调后奶粉非常好用，配合辅食更容易安排喂养时间。"
-  },
-  {
-    name: "育婴咨询师",
-    stage: "服务案例",
-    note: "咨询反馈样本（样例）",
-    quote: "分阶段解释配方逻辑后，家长对产品理解更清晰，选择更有依据。"
-  }
-];
-
-export const productStages = [
+export const productStages: StageItem[] = [
   {
     stage: "1段",
     age: "0-6月龄",
-    accent: "blue",
-    summary: "适配新生宝宝初期营养需求，关注温和承接与日常喂养。",
-    points: ["温和易吸收", "助力自然舒适", "科学配比"],
-    tags: ["初生阶段", "温和配方", "日常营养"]
+    name: "婴儿配方奶粉",
+    summary: "初生阶段，关注温和承接与日常营养。"
   },
   {
     stage: "2段",
     age: "6-12月龄",
-    accent: "green",
-    summary: "衔接辅食添加阶段，强化成长发育期所需的均衡支持。",
-    points: ["营养进阶", "助力成长发育", "均衡配方"],
-    tags: ["辅食衔接", "成长进阶", "均衡支持"]
+    name: "较大婴儿配方奶粉",
+    summary: "辅食衔接阶段，支持成长节律。"
   },
   {
     stage: "3段",
     age: "12-36月龄",
-    accent: "orange",
-    summary: "面向幼儿活力成长阶段，关注多维营养和日常饮食补充。",
-    points: ["营养全面", "助力活力成长", "多维营养组合"],
-    tags: ["幼儿阶段", "活力成长", "多维营养"]
+    name: "幼儿配方奶粉",
+    summary: "幼儿活力阶段，补充多维营养。"
   }
 ];
 
-export const ratioHighlights = [
+export const productContent = {
+  title: "三段科学分龄。",
+  subtitle: "按月龄成长节律设计，让选择更清晰。",
+  alt: "乐芬一段二段三段婴幼儿配方奶粉产品线横向展示"
+};
+
+export const nfpContent = {
+  title: "不从粉起步。",
+  subtitle: "高占比液态湿法工艺，让营养在液态阶段均匀融合。",
+  alt: "鲜奶经过湿法工艺设备转化为奶粉的高端白底示意图"
+};
+
+export const nfpFeatures: FeatureItem[] = [
   {
-    title: "蛋白结构",
-    body: "围绕不同月龄消化特点设计乳清蛋白与酪蛋白比例。"
+    title: "液态融合",
+    body: "核心营养在液态阶段参与配伍，减少复溶路径。"
   },
   {
-    title: "脂肪支持",
-    body: "通过乳脂参与配方主料结构，提供成长所需能量基础。"
+    title: "温和成粉",
+    body: "通过稳定工艺窗口，兼顾鲜活感与批次稳定。"
   },
   {
-    title: "营养协同",
-    body: "主料配比与维矿、活性营养等共同构成完整配方体系。"
+    title: "清晰追溯",
+    body: "批次信息以产品包装为准，关键节点可追踪。"
+  }
+];
+
+export const sourceContent = {
+  title: "来自芬兰的纯净奶源。",
+  subtitle: "依托 Valio 奶源体系，从牧场、原奶到工厂协同管理。",
+  alt: "芬兰湖区草地与牛奶玻璃杯，象征乐芬奶源故事"
+};
+
+export const promiseItems: FeatureItem[] = [
+  {
+    title: "真实产品识别",
+    body: "官网图片以乐芬现有包装为基础，保持段位、品牌和产品线识别。"
+  },
+  {
+    title: "少一点复杂表达",
+    body: "把工艺、奶源、分段逻辑讲短，保留家长真正需要判断的信息。"
+  },
+  {
+    title: "服务持续在线",
+    body: "产品咨询、段位选择、合作与售后问题，都可以通过官网入口触达。"
   }
 ];
 
 export const faqItems: FaqItem[] = [
   {
-    question: "什么是NFP™（Not From Powder）？",
+    question: "什么是 NFP™ Not From Powder？",
     answer:
-      "NFP™ 表示不从粉开始，不通过基粉复溶再加工，而是以液态奶源高占比入料，一次性成粉，减少复溶带来的营养流失和二次污染风险。"
+      "NFP™ 表示不从粉开始，不通过基粉复溶再加工，而是强调液态原料高占比参与湿法成粉。"
   },
   {
-    question: "一二段液态成粉率90%，三段98%是什么意思？",
+    question: "如何选择适合宝宝的段位？",
     answer:
-      "这是指配方中液态原料直接参与成粉的比例。乐芬通过高占比液态湿法工艺，让不同段位都尽量保留鲜活奶源特点。"
+      "通常按月龄选择：1段适合0-6月龄，2段适合6-12月龄，3段适合12-36月龄；具体喂养建议请结合宝宝实际情况咨询专业人士。"
   },
   {
-    question: "乐芬奶粉真的拒绝复溶吗？",
+    question: "开罐后如何保存？",
     answer:
-      "乐芬坚持高占比液态湿法工艺，减少基粉复溶路径，让产品从源头到成粉更贴近鲜活状态。"
-  },
-  {
-    question: "乐芬奶粉的奶源来自哪里？",
-    answer:
-      "乐芬源自芬兰 Valio 奶源体系，依托自有牧场、质量监控和全程追溯，确保稳定纯净。"
-  },
-  {
-    question: "为什么采用高占比液态湿法工艺？",
-    answer:
-      "湿法工艺能在液态阶段让营养均匀融合，减少干混和复溶步骤，更有利于配方均衡与品质稳定。"
-  },
-  {
-    question: "如何选择适合宝宝的奶粉段位？",
-    answer:
-      "通常可按月龄选择：1段适合0-6月龄，2段适合6-12月龄，3段适合12-36月龄；具体喂养建议应结合宝宝实际情况咨询专业人士。"
-  },
-  {
-    question: "开罐后应如何保存？",
-    answer:
-      "建议开罐后保持罐盖密封，置于阴凉干燥处，避免阳光直射和潮湿环境；开罐后的食用期限请以产品包装说明为准。"
+      "建议保持罐盖密封，置于阴凉干燥处，避免阳光直射和潮湿环境；食用期限请以产品包装说明为准。"
   },
   {
     question: "冲调时需要注意什么？",
@@ -311,11 +137,7 @@ export const faqItems: FaqItem[] = [
   }
 ];
 
-export const contactHighlights = [
-  { title: "产品咨询", body: "段位选择、冲调方式、产品信息说明" },
-  { title: "渠道合作", body: "经销合作、区域咨询、品牌资料对接" },
-  { title: "售后支持", body: "包装信息、批次咨询、留言快速跟进" }
-];
+export const contactTopics = ["产品咨询", "渠道合作", "售后服务"];
 
 export function validateContactForm(values: ContactFormValues): ContactFormErrors {
   const errors: ContactFormErrors = {};

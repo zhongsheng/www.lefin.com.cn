@@ -22,5 +22,6 @@ npm run build
 ## Notes
 
 - Product and logo assets are based on the supplied Lefin references.
-- Website images are stored in `src/assets` as optimized WebP/PNG assets.
-- The homepage is a single responsive site with anchor navigation, mobile menu, FAQ accordion, and local contact form validation.
+- Apple-style website images are stored in `src/assets/apple` as optimized WebP assets.
+- The homepage is a single responsive site with anchor navigation, mobile menu, FAQ accordion, local contact form validation, and dedicated desktop/mobile hero imagery.
+- Public crawler/agent content is available at `/llms.txt` and `/lefin-site.md`.

@@ -1,35 +1,31 @@
 import { describe, expect, it } from "vitest";
-import { faqItems, navItems, processSteps, validateContactForm } from "./siteContent";
+import { faqItems, navItems, productStages, validateContactForm } from "./siteContent";
 
 describe("site content", () => {
-  it("keeps the official navigation labels in source order", () => {
+  it("keeps the simplified Apple-style navigation labels in source order", () => {
     expect(navItems.map((item) => item.label)).toEqual([
-      "品牌故事",
-      "科学解读",
       "乐芬婴配",
-      "用户口碑",
-      "NFP™",
-      "关于我们"
+      "NFP工艺",
+      "Valio奶源",
+      "品牌承诺",
+      "联系"
     ]);
   });
 
-  it("keeps source-aligned FAQ coverage", () => {
-    expect(faqItems).toHaveLength(8);
-    expect(faqItems.map((item) => item.question)).toContain("什么是NFP™（Not From Powder）？");
-    expect(faqItems.map((item) => item.question)).toContain("如何选择适合宝宝的奶粉段位？");
-    expect(faqItems.map((item) => item.question)).toContain("开罐后应如何保存？");
+  it("keeps three product stages aligned to age ranges", () => {
+    expect(productStages.map((item) => `${item.stage}:${item.age}`)).toEqual([
+      "1段:0-6月龄",
+      "2段:6-12月龄",
+      "3段:12-36月龄"
+    ]);
+  });
+
+  it("keeps FAQ coverage focused on product selection and use", () => {
+    expect(faqItems).toHaveLength(4);
+    expect(faqItems.map((item) => item.question)).toContain("什么是 NFP™ Not From Powder？");
+    expect(faqItems.map((item) => item.question)).toContain("如何选择适合宝宝的段位？");
+    expect(faqItems.map((item) => item.question)).toContain("开罐后如何保存？");
     expect(faqItems.map((item) => item.question)).toContain("冲调时需要注意什么？");
-  });
-
-  it("models the six-step wet-process flow from the prototype", () => {
-    expect(processSteps.map((step) => step.title)).toEqual([
-      "优质奶源",
-      "低温净化",
-      "膜过滤浓缩",
-      "低温均质",
-      "低温喷雾干燥",
-      "无菌冷却包装"
-    ]);
   });
 
   it("validates contact form fields before showing a success state", () => {
