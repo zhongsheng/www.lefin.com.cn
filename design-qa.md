@@ -34,3 +34,14 @@
 - Markdown content link exists at `/lefin-site.md`.
 
 final result: passed
+
+**2026-06-29 Hero Edge Blend Fix**
+- Issue: Desktop hero WebP showed a visible rectangular canvas edge against the white page background.
+- Root cause: The raster image canvas is near-white rather than pure white, and the contained image starts inside the full-width `<img>` box.
+- Fix: Added a non-interactive white gradient edge fade on `.hero-media::after` so the hero asset blends into the white page while keeping the product cans untouched.
+- Browser: In-app browser at `http://127.0.0.1:5174/`.
+- Evidence files: `work/qa/2026-06-29-hero-edge/` (gitignored).
+- Pixel check: left hero edge strip improved from about `(246, 246, 246)` before to about `(254, 254, 254)` after against a white `(255, 255, 255)` page.
+- Viewports checked: `1440x1000`, `1210x1000`, `390x844`, `544x1000`.
+- QA results: no horizontal overflow, hero content present, all images loaded, no framework overlay, no browser console warnings/errors.
+- Interaction proof: hero `了解产品` CTA navigated to `#products` and the products section was visible.
