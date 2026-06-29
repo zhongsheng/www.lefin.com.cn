@@ -20,8 +20,9 @@ describe("release-sftp.sh", () => {
     const result = runReleaseScript(fixture);
 
     expect(result.status, result.stderr || result.stdout).toBe(0);
-    expect(result.stdout).toContain("Uploading dist/ to ubuntu@161.189.5.168:/var/local/www");
+    expect(result.stdout).toContain("Uploading dist/ to ubuntu@161.189.5.168:/usr/share/www");
     expect(readFileSync(fixture.sftpCaptureFile, "utf8")).toContain("TARGET=ubuntu@161.189.5.168");
+    expect(readFileSync(fixture.sftpCaptureFile, "utf8")).toContain("cd /usr/share/www");
   });
 
   it("installs missing build dependencies, builds, then uploads", () => {

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 HOST="${LEFIN_SFTP_HOST:-161.189.5.168}"
-REMOTE_DIR="${LEFIN_SFTP_REMOTE_DIR:-/var/local/www}"
+REMOTE_DIR="${LEFIN_SFTP_REMOTE_DIR:-/usr/share/www}"
 PORT="${LEFIN_SFTP_PORT:-22}"
 LOCAL_DIR="${LEFIN_RELEASE_DIR:-dist}"
 USER_NAME="${LEFIN_SFTP_USER:-${SFTP_USER:-ubuntu}}"

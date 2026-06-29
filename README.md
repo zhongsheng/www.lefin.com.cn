@@ -31,7 +31,7 @@ Defaults:
 
 - Host: `161.189.5.168`
 - User: `ubuntu`
-- Remote directory: `/var/local/www`
+- Remote directory: `/usr/share/www`
 - Local directory: `dist`
 - Port: `22`
 
@@ -44,7 +44,7 @@ LEFIN_SFTP_USER=ubuntu
 LEFIN_SFTP_KEY=~/.ssh/lefin_deploy_key
 LEFIN_SFTP_PORT=22
 LEFIN_SFTP_HOST=161.189.5.168
-LEFIN_SFTP_REMOTE_DIR=/var/local/www
+LEFIN_SFTP_REMOTE_DIR=/usr/share/www
 LEFIN_RELEASE_DIR=dist
 ```
 
