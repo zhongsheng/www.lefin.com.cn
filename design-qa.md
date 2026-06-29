@@ -45,3 +45,12 @@ final result: passed
 - Viewports checked: `1440x1000`, `1210x1000`, `390x844`, `544x1000`.
 - QA results: no horizontal overflow, hero content present, all images loaded, no framework overlay, no browser console warnings/errors.
 - Interaction proof: hero `了解产品` CTA navigated to `#products` and the products section was visible.
+
+**2026-06-29 Entry Modal**
+- Change: Added a homepage entry modal for the breastfeeding guidance notice shown in the supplied reference image.
+- Implementation: Native HTML dialog text, dismiss button, body scroll lock while open, blue card with milk-wave decoration.
+- Browser: In-app browser used for initial visual checks; Playwright CLI used for the required multi-viewport screenshot sweep after the in-app browser API timed out on large screenshot loops.
+- Evidence files: `work/qa/2026-06-29-entry-modal/` (gitignored).
+- Viewports checked: `1440x1000`, `1210x1000`, `390x844`, `544x1000`.
+- QA results: modal appears on fresh home entry, expected text is present, no horizontal overflow, no framework overlay, and no browser console errors.
+- Interaction proof: close button removes the dialog and unlocks body scroll; after dismissal, hero `了解产品` CTA navigates to `#products` and the products section is visible.

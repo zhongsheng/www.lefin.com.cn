@@ -4,6 +4,22 @@ import { describe, expect, it } from "vitest";
 import App from "./App";
 
 describe("Lefin homepage", () => {
+  it("shows the breastfeeding guidance modal when entering the homepage and allows dismissal", async () => {
+    render(<App />);
+
+    const user = userEvent.setup();
+    const modal = screen.getByRole("dialog", { name: "母乳喂养提示" });
+
+    expect(modal).toBeInTheDocument();
+    expect(screen.getByText("母乳对宝宝来说是最好的食品")).toBeInTheDocument();
+    expect(modal).toHaveTextContent("世界卫生组织建议纯母乳喂养至少");
+    expect(modal).toHaveTextContent("至宝宝6个月");
+
+    await user.click(screen.getByRole("button", { name: "关闭母乳喂养提示" }));
+
+    expect(screen.queryByRole("dialog", { name: "母乳喂养提示" })).not.toBeInTheDocument();
+  });
+
   it("renders the Apple-style single-page homepage structure", () => {
     render(<App />);
 

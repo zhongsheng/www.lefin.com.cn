@@ -12,6 +12,7 @@ import sourceMobileUrl from "./assets/apple/source-mobile.webp";
 import {
   ContactFormErrors,
   ContactFormValues,
+  breastfeedingNotice,
   contactTopics,
   faqItems,
   heroContent,
@@ -132,6 +133,41 @@ function Header() {
         </div>
       ) : null}
     </header>
+  );
+}
+
+type BreastfeedingNoticeModalProps = {
+  onClose: () => void;
+};
+
+function BreastfeedingNoticeModal({ onClose }: BreastfeedingNoticeModalProps) {
+  return (
+    <div className="feeding-modal-shell">
+      <section className="feeding-modal-card" role="dialog" aria-modal="true" aria-label={breastfeedingNotice.ariaLabel}>
+        <button
+          className="feeding-modal-close"
+          type="button"
+          aria-label={breastfeedingNotice.closeLabel}
+          onClick={onClose}
+        >
+          <X size={20} weight="bold" />
+        </button>
+        <div className="feeding-modal-copy">
+          <p>{breastfeedingNotice.intro}</p>
+          <strong>
+            {breastfeedingNotice.recommendation[0]}
+            <br />
+            {breastfeedingNotice.recommendation[1]}
+          </strong>
+        </div>
+        <div className="feeding-modal-milk" aria-hidden="true">
+          <span className="milk-drop milk-drop-one" />
+          <span className="milk-drop milk-drop-two" />
+          <span className="milk-drop milk-drop-three" />
+          <span className="milk-drop milk-drop-four" />
+        </div>
+      </section>
+    </div>
   );
 }
 
@@ -368,7 +404,22 @@ function Footer() {
 }
 
 export default function App() {
+  const [showBreastfeedingNotice, setShowBreastfeedingNotice] = useState(true);
+
   useHashScroll();
+
+  useEffect(() => {
+    if (!showBreastfeedingNotice) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [showBreastfeedingNotice]);
 
   return (
     <>
@@ -382,6 +433,9 @@ export default function App() {
         <FaqContactSection />
       </main>
       <Footer />
+      {showBreastfeedingNotice ? (
+        <BreastfeedingNoticeModal onClose={() => setShowBreastfeedingNotice(false)} />
+      ) : null}
     </>
   );
 }

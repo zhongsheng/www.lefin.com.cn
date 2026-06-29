@@ -45,6 +45,13 @@ export const heroContent = {
   alt: "乐芬一段二段三段婴幼儿配方奶粉白底高级产品展示"
 };
 
+export const breastfeedingNotice = {
+  ariaLabel: "母乳喂养提示",
+  intro: "母乳对宝宝来说是最好的食品",
+  recommendation: ["世界卫生组织建议纯母乳喂养至少", "至宝宝6个月"],
+  closeLabel: "关闭母乳喂养提示"
+};
+
 export const productStages: StageItem[] = [
   {
     stage: "1段",
