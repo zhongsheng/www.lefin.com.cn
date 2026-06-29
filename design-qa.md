@@ -54,3 +54,14 @@ final result: passed
 - Viewports checked: `1440x1000`, `1210x1000`, `390x844`, `544x1000`.
 - QA results: modal appears on fresh home entry, expected text is present, no horizontal overflow, no framework overlay, and no browser console errors.
 - Interaction proof: close button removes the dialog and unlocks body scroll; after dismissal, hero `了解产品` CTA navigates to `#products` and the products section is visible.
+
+**2026-06-29 Hero Cutout Asset Fix**
+- Issue: The previous edge-blend CSS still left visible hero image boundaries because the raster carried an opaque near-white canvas and side milk-wave crop edges.
+- Root cause: `hero-desktop.webp` and `hero-mobile.webp` were RGB WebP assets without alpha, so the page was rendering the image canvas instead of only the product composition.
+- Fix: Added alpha WebP cutout assets for desktop/mobile hero usage, preserved the product cans and central reflection, removed the side milk-wave crop, and removed the `.hero-media::after` white overlay.
+- Browser: In-app browser at `http://127.0.0.1:5174/`.
+- Evidence files: `work/qa/2026-06-29-hero-cutout/` (gitignored).
+- Viewports checked: `1440x1000`, `1210x1000`, `390x844`, `544x1000`.
+- QA results: no visible rectangular hero canvas edge, no horizontal overflow, hero content present, all images loaded, no framework overlay, and no browser console warnings/errors.
+- Responsive proof: mobile `currentSrc` selected `hero-mobile-cutout.webp` with natural size `1080x1920`.
+- Interaction proof: hero `了解产品` CTA navigated to `#products`; target heading top was `180px`, so the sticky header did not cover it.

@@ -1,8 +1,8 @@
 import { FormEvent, useEffect, useState } from "react";
 import { CaretDown, EnvelopeSimple, List, Phone, X } from "@phosphor-icons/react";
 import logoUrl from "./assets/brand/lefin-logo.webp";
-import heroDesktopUrl from "./assets/apple/hero-desktop.webp";
-import heroMobileUrl from "./assets/apple/hero-mobile.webp";
+import heroDesktopUrl from "./assets/apple/hero-desktop-cutout.webp";
+import heroMobileUrl from "./assets/apple/hero-mobile-cutout.webp";
 import productsDesktopUrl from "./assets/apple/products-desktop.webp";
 import productsMobileUrl from "./assets/apple/products-mobile.webp";
 import nfpDesktopUrl from "./assets/apple/nfp-desktop.webp";

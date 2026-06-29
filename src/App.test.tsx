@@ -28,7 +28,10 @@ describe("Lefin homepage", () => {
     expect(screen.getByRole("link", { name: "了解产品" })).toHaveAttribute("href", "#products");
     expect(screen.getByRole("link", { name: "查看 NFP 工艺" })).toHaveAttribute("href", "#nfp");
     expect(screen.getByRole("navigation", { name: "主导航" })).toBeInTheDocument();
-    expect(screen.getByAltText("乐芬一段二段三段婴幼儿配方奶粉白底高级产品展示")).toBeInTheDocument();
+    expect(screen.getByAltText("乐芬一段二段三段婴幼儿配方奶粉白底高级产品展示")).toHaveAttribute(
+      "src",
+      expect.stringContaining("hero-desktop-cutout.webp")
+    );
     expect(screen.getByAltText("乐芬一段二段三段婴幼儿配方奶粉产品线横向展示")).toBeInTheDocument();
     expect(screen.getByAltText("鲜奶经过湿法工艺设备转化为奶粉的高端白底示意图")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Markdown 内容" })).toHaveAttribute("href", "/lefin-site.md");
