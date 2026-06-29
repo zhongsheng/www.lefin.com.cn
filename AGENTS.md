@@ -120,11 +120,11 @@ For visual changes:
 
 ## Git Workflow
 
-- Default branch for feature work should use the `codex/` prefix.
+- Do not create feature branches for this repository; make changes directly on `main`.
 - Do not reset or revert unrelated user changes.
 - Do not commit `dist/`, `node_modules/`, or `work/`.
 - Use `npm run release` to build and upload `dist/` over SFTP. Keep host, port, user, key, and remote path configurable through environment variables; never commit credentials.
-- After implementation and verification, commit with a concise message and push the working branch.
+- After implementation and verification, commit with a concise message and push `main`.
 
 ## Common Pitfalls
 
