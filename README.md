@@ -19,6 +19,38 @@ npm run test:run
 npm run build
 ```
 
+## Release
+
+Build and upload `dist/` to the production host over SFTP:
+
+```bash
+LEFIN_SFTP_USER=deploy npm run release
+```
+
+Defaults:
+
+- Host: `161.189.5.168`
+- Remote directory: `/var/local/www`
+- Local directory: `dist`
+- Port: `22`
+
+Optional environment variables:
+
+```bash
+LEFIN_SFTP_USER=deploy
+LEFIN_SFTP_KEY=~/.ssh/lefin_deploy_key
+LEFIN_SFTP_PORT=22
+LEFIN_SFTP_HOST=161.189.5.168
+LEFIN_SFTP_REMOTE_DIR=/var/local/www
+LEFIN_RELEASE_DIR=dist
+```
+
+To upload an already-built `dist/` without rebuilding:
+
+```bash
+LEFIN_SFTP_USER=deploy npm run release:sftp
+```
+
 ## Notes
 
 - Product and logo assets are based on the supplied Lefin references.

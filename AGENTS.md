@@ -31,6 +31,7 @@ npm install
 npm run dev
 npm run test:run
 npm run build
+LEFIN_SFTP_USER=deploy npm run release
 ```
 
 Before claiming completion, run:
@@ -122,6 +123,7 @@ For visual changes:
 - Default branch for feature work should use the `codex/` prefix.
 - Do not reset or revert unrelated user changes.
 - Do not commit `dist/`, `node_modules/`, or `work/`.
+- Use `npm run release` to build and upload `dist/` over SFTP. Keep host, port, user, key, and remote path configurable through environment variables; never commit credentials.
 - After implementation and verification, commit with a concise message and push the working branch.
 
 ## Common Pitfalls
