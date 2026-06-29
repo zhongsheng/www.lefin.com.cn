@@ -9,14 +9,56 @@ USER_NAME="${LEFIN_SFTP_USER:-${SFTP_USER:-ubuntu}}"
 IDENTITY_FILE="${LEFIN_SFTP_KEY:-${SFTP_KEY:-}}"
 STRICT_HOST_KEY_CHECKING="${LEFIN_SFTP_STRICT_HOST_KEY_CHECKING:-accept-new}"
 
-if [[ ! -d "${LOCAL_DIR}" ]]; then
-  echo "Local release directory not found: ${LOCAL_DIR}" >&2
-  echo "Run npm run build first, or use npm run release." >&2
+needs_build_dependency_install() {
+  if [[ ! -d "node_modules" ]]; then
+    return 0
+  fi
+
+  if [[ -f "package-lock.json" && ( ! -f "node_modules/.package-lock.json" || "package-lock.json" -nt "node_modules/.package-lock.json" ) ]]; then
+    return 0
+  fi
+
+  if [[ ! -x "node_modules/.bin/tsc" || ! -x "node_modules/.bin/vite" ]]; then
+    return 0
+  fi
+
+  return 1
+}
+
+install_build_dependencies() {
+  if [[ -f "package-lock.json" ]]; then
+    echo "Installing build dependencies with npm ci..."
+    npm ci
+  else
+    echo "Installing build dependencies with npm install..."
+    npm install
+  fi
+}
+
+if [[ ! -f "package.json" ]]; then
+  echo "package.json not found. Run this script from the repository root." >&2
+  exit 1
+fi
+
+if ! command -v npm >/dev/null 2>&1; then
+  echo "npm command not found. Install Node.js and npm before releasing." >&2
   exit 1
 fi
 
 if ! command -v sftp >/dev/null 2>&1; then
   echo "sftp command not found. Install OpenSSH client before releasing." >&2
+  exit 1
+fi
+
+if needs_build_dependency_install; then
+  install_build_dependencies
+fi
+
+echo "Building release assets..."
+npm run build
+
+if [[ ! -d "${LOCAL_DIR}" ]]; then
+  echo "Local release directory not found after build: ${LOCAL_DIR}" >&2
   exit 1
 fi
 

@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 
+const scriptPath = join(process.cwd(), "scripts/release-sftp.sh");
 const tempRoots: string[] = [];
 
 afterEach(() => {
@@ -14,30 +15,26 @@ afterEach(() => {
 
 describe("release-sftp.sh", () => {
   it("uses ubuntu as the default SFTP user", () => {
-    const tempRoot = createTempRoot();
-    const localDir = join(tempRoot, "dist");
-    const fakeBinDir = join(tempRoot, "bin");
-    const captureFile = join(tempRoot, "sftp-call.txt");
+    const fixture = createReleaseFixture({ installBuildDependencies: true });
 
-    mkdirSync(localDir);
-    mkdirSync(fakeBinDir);
-    writeFileSync(join(localDir, "index.html"), "<!doctype html>");
-    writeFakeSftp(join(fakeBinDir, "sftp"));
-
-    const result = spawnSync("bash", ["scripts/release-sftp.sh"], {
-      cwd: process.cwd(),
-      encoding: "utf8",
-      env: {
-        PATH: `${fakeBinDir}:${process.env.PATH ?? ""}`,
-        LEFIN_RELEASE_DIR: localDir,
-        SFTP_CAPTURE_FILE: captureFile,
-        TMPDIR: tempRoot
-      }
-    });
+    const result = runReleaseScript(fixture);
 
     expect(result.status, result.stderr || result.stdout).toBe(0);
-    expect(result.stdout).toContain(`Uploading ${localDir}/ to ubuntu@161.189.5.168:/var/local/www`);
-    expect(readFileSync(captureFile, "utf8")).toContain("TARGET=ubuntu@161.189.5.168");
+    expect(result.stdout).toContain("Uploading dist/ to ubuntu@161.189.5.168:/var/local/www");
+    expect(readFileSync(fixture.sftpCaptureFile, "utf8")).toContain("TARGET=ubuntu@161.189.5.168");
+  });
+
+  it("installs missing build dependencies, builds, then uploads", () => {
+    const fixture = createReleaseFixture({ installBuildDependencies: false });
+
+    const result = runReleaseScript(fixture);
+
+    expect(result.status, result.stderr || result.stdout).toBe(0);
+    expect(readFileSync(fixture.npmCaptureFile, "utf8").trim().split("\n")).toEqual([
+      "ci",
+      "run build"
+    ]);
+    expect(readFileSync(fixture.sftpCaptureFile, "utf8")).toContain("lcd dist");
   });
 });
 
@@ -47,6 +44,87 @@ function createTempRoot() {
   mkdirSync(tempRoot, { recursive: true });
   tempRoots.push(tempRoot);
   return tempRoot;
+}
+
+function createReleaseFixture({ installBuildDependencies }: { installBuildDependencies: boolean }) {
+  const tempRoot = createTempRoot();
+  const projectDir = join(tempRoot, "project");
+  const fakeBinDir = join(tempRoot, "bin");
+  const npmCaptureFile = join(tempRoot, "npm-call.txt");
+  const sftpCaptureFile = join(tempRoot, "sftp-call.txt");
+  const localDir = join(projectDir, "dist");
+
+  mkdirSync(projectDir);
+  mkdirSync(fakeBinDir);
+  writeFileSync(join(projectDir, "package.json"), '{"scripts":{"build":"vite build"}}');
+  writeFileSync(join(projectDir, "package-lock.json"), '{"lockfileVersion":3}');
+
+  if (installBuildDependencies) {
+    writeBuildDependencyMarkers(projectDir);
+  }
+
+  writeFakeNpm(join(fakeBinDir, "npm"));
+  writeFakeSftp(join(fakeBinDir, "sftp"));
+
+  return {
+    fakeBinDir,
+    localDir,
+    npmCaptureFile,
+    projectDir,
+    sftpCaptureFile,
+    tempRoot
+  };
+}
+
+function runReleaseScript(fixture: ReturnType<typeof createReleaseFixture>) {
+  return spawnSync("bash", [scriptPath], {
+    cwd: fixture.projectDir,
+    encoding: "utf8",
+    env: {
+      PATH: `${fixture.fakeBinDir}:${process.env.PATH ?? ""}`,
+      NPM_CAPTURE_FILE: fixture.npmCaptureFile,
+      SFTP_CAPTURE_FILE: fixture.sftpCaptureFile,
+      TMPDIR: fixture.tempRoot
+    }
+  });
+}
+
+function writeBuildDependencyMarkers(projectDir: string) {
+  const binDir = join(projectDir, "node_modules", ".bin");
+  mkdirSync(binDir, { recursive: true });
+  writeFileSync(join(binDir, "tsc"), "#!/usr/bin/env bash\n", { mode: 0o755 });
+  writeFileSync(join(binDir, "vite"), "#!/usr/bin/env bash\n", { mode: 0o755 });
+}
+
+function writeFakeNpm(path: string) {
+  writeFileSync(
+    path,
+    `#!/usr/bin/env bash
+set -euo pipefail
+
+printf '%s\\n' "$*" >> "\${NPM_CAPTURE_FILE}"
+
+if [[ "$*" == "ci" || "$*" == "install" ]]; then
+  mkdir -p node_modules/.bin
+  printf '#!/usr/bin/env bash\\n' > node_modules/.bin/tsc
+  printf '#!/usr/bin/env bash\\n' > node_modules/.bin/vite
+  chmod +x node_modules/.bin/tsc node_modules/.bin/vite
+  exit 0
+fi
+
+if [[ "$*" == "run build" ]]; then
+  test -x node_modules/.bin/tsc
+  test -x node_modules/.bin/vite
+  mkdir -p dist
+  printf '<!doctype html>' > dist/index.html
+  exit 0
+fi
+
+echo "Unexpected npm command: $*" >&2
+exit 1
+`,
+    { mode: 0o755 }
+  );
 }
 
 function writeFakeSftp(path: string) {

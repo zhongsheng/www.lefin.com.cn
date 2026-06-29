@@ -21,7 +21,7 @@ npm run build
 
 ## Release
 
-Build and upload `dist/` to the production host over SFTP:
+Install missing build dependencies, build `dist/`, and upload it to the production host over SFTP:
 
 ```bash
 npm run release
@@ -35,6 +35,8 @@ Defaults:
 - Local directory: `dist`
 - Port: `22`
 
+The release script runs `npm ci` when `package-lock.json` is present and build dependencies are missing or stale. If no lockfile exists, it falls back to `npm install`.
+
 Optional environment variables:
 
 ```bash
@@ -46,7 +48,7 @@ LEFIN_SFTP_REMOTE_DIR=/var/local/www
 LEFIN_RELEASE_DIR=dist
 ```
 
-To upload an already-built `dist/` without rebuilding:
+To run the SFTP release script directly:
 
 ```bash
 npm run release:sftp
