@@ -31,7 +31,7 @@ npm install
 npm run dev
 npm run test:run
 npm run build
-LEFIN_SFTP_USER=deploy npm run release
+npm run release
 ```
 
 Before claiming completion, run:

@@ -5,15 +5,9 @@ HOST="${LEFIN_SFTP_HOST:-161.189.5.168}"
 REMOTE_DIR="${LEFIN_SFTP_REMOTE_DIR:-/var/local/www}"
 PORT="${LEFIN_SFTP_PORT:-22}"
 LOCAL_DIR="${LEFIN_RELEASE_DIR:-dist}"
-USER_NAME="${LEFIN_SFTP_USER:-${SFTP_USER:-}}"
+USER_NAME="${LEFIN_SFTP_USER:-${SFTP_USER:-ubuntu}}"
 IDENTITY_FILE="${LEFIN_SFTP_KEY:-${SFTP_KEY:-}}"
 STRICT_HOST_KEY_CHECKING="${LEFIN_SFTP_STRICT_HOST_KEY_CHECKING:-accept-new}"
-
-if [[ -z "${USER_NAME}" ]]; then
-  echo "Missing SFTP user. Set LEFIN_SFTP_USER, for example:" >&2
-  echo "  LEFIN_SFTP_USER=deploy npm run release" >&2
-  exit 1
-fi
 
 if [[ ! -d "${LOCAL_DIR}" ]]; then
   echo "Local release directory not found: ${LOCAL_DIR}" >&2

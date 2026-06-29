@@ -24,12 +24,13 @@ npm run build
 Build and upload `dist/` to the production host over SFTP:
 
 ```bash
-LEFIN_SFTP_USER=deploy npm run release
+npm run release
 ```
 
 Defaults:
 
 - Host: `161.189.5.168`
+- User: `ubuntu`
 - Remote directory: `/var/local/www`
 - Local directory: `dist`
 - Port: `22`
@@ -37,7 +38,7 @@ Defaults:
 Optional environment variables:
 
 ```bash
-LEFIN_SFTP_USER=deploy
+LEFIN_SFTP_USER=ubuntu
 LEFIN_SFTP_KEY=~/.ssh/lefin_deploy_key
 LEFIN_SFTP_PORT=22
 LEFIN_SFTP_HOST=161.189.5.168
@@ -48,7 +49,7 @@ LEFIN_RELEASE_DIR=dist
 To upload an already-built `dist/` without rebuilding:
 
 ```bash
-LEFIN_SFTP_USER=deploy npm run release:sftp
+npm run release:sftp
 ```
 
 ## Notes
